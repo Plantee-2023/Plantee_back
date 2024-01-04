@@ -30,8 +30,8 @@ public class StoreDAOImpl implements StoreDAO {
 
 	@Override
 	public List<HashMap<String, Object>> list(QueryVO vo) {
-		// TODO Auto-generated method stub
-		return null;
+		//vo.setStart((vo.getPage() - 1) * vo.getSize());
+		return session.selectList(namespace + ".list", vo);
 	}
 
 	@Override

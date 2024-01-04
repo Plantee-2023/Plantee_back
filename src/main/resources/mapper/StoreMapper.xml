@@ -20,6 +20,11 @@
 	<select id="list" resultType="hashmap">
 		select *, date_format(reg_date, '%Y-%m-%d %T') fmtdate, format(price,0) fmtprice
 		from store
+		order by store_id desc;
+	</select>
+	<select id="list2" resultType="hashmap">
+		select *, date_format(reg_date, '%Y-%m-%d %T') fmtdate, format(price,0) fmtprice
+		from store
 		where title like concat('%',#{query},'%') or contents like concat('%',#{query},'%')
 		order by store_id desc
 		limit #{start}, #{size};

@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.plantee.dao.StoreDAO;
+import com.plantee.domain.QueryVO;
+import com.plantee.service.StoreService;
 
 @RestController
 @RequestMapping("/store")
@@ -16,10 +18,18 @@ public class ShopRestController {
 	@Autowired
 	StoreDAO dao;
 	
-	@GetMapping("/read.json/{store_id}") // 관리자용
+	@Autowired
+	StoreService service;
+	
+	@GetMapping("/read/{store_id}") 
 	public HashMap<String, Object> read(@PathVariable("store_id") int store_id) {
 		System.out.println("................." + store_id);
 		return dao.read(store_id);
+	}
+	
+	@GetMapping("/list.json")
+	public HashMap<String, Object> list(QueryVO vo) {
+		return service.list(vo);
 	}
 	
 }
