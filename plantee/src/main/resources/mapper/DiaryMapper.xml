@@ -5,4 +5,5 @@
 		select *,date_format(reg_date, '%Y-%m-%d %T') fmtdate
 		from diary;
 	</select>
+	<select id=""></select>
 </mapper>
