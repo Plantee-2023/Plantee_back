@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.plantee.dao.TestDAO;
+import com.plantee.dao.UserDAO;
 
 @SpringBootTest
 class PlanteeApplicationTests {
@@ -21,4 +22,12 @@ class PlanteeApplicationTests {
 	void contextLoads() {
 	}
 
+	
+	@Autowired
+	UserDAO udao;
+	
+	@Test
+	void read() {
+		udao.read("red");
+	}
 }

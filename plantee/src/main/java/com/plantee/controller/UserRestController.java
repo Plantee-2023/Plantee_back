@@ -71,4 +71,3 @@ public class UserRestController {
 		dao.image(vo);
 	}
 
-}

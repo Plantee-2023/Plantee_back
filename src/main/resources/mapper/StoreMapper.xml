@@ -2,7 +2,62 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.plantee.mapper.StoreMapper">
 	<select id="read" resultType="hashmap">
-		select *
-		from store;
+		select *, date_format(reg_date, '%Y-%m-%d %T') fmtdate, format(price, 0) fmtprice
+		from store
+		where store_id = #{store_id};
 	</select>
+	<select id="info" resultType="hashmap">
+		select *, date_format(reg_date, '%Y-%m-%d %T') fmtdate, format(price, 0) fmtprice,
+		(select count(*) from favorite where uid = #{uid} and store_id = #{store_id}) ucnt
+		from store
+		where store_id = #{store_id};
+	</select>
+	<select id="total" resultType="int">
+		select count(*)
+		from store
+		where title like concat('%',#{query},'%') or contents like concat('%',#{query},'%');
+	</select>
+	<select id="list" resultType="hashmap">
+		select *, date_format(reg_date, '%Y-%m-%d %T') fmtdate, format(price,0) fmtprice
+		from store
+		order by store_id desc;
+	</select>
+	<select id="list2" resultType="hashmap">
+		select *, date_format(reg_date, '%Y-%m-%d %T') fmtdate, format(price,0) fmtprice
+		from store
+		where title like concat('%',#{query},'%') or contents like concat('%',#{query},'%')
+		order by store_id desc
+		limit #{start}, #{size};
+	</select>
+	<insert id="insert">
+		insert into store(user_id, title, contents, image, price, stock, level, tag, category)
+		values(#{user_id}, #{title}, #{contents}, #{image}, #{price}, #{stock}, #{level}, #{tag}, #{category});
+	</insert>
+	<update id="update">
+		update store
+		set title=#{title}, contents=#{contents}, image=#{image}, price=#{price}, stock=#{stock}, level=#{level}, tag=#{tag}
+		where store_id = #{store_id};
+	</update>
+	<update id="image">
+		update store
+		set image = #{image}
+		where store_id = #{store_id};
+	</update>
+	<delete id="delete">
+		delete from store
+		where store_id = #{store_id};
+	</delete>
+	<insert id="like">
+		insert into likes(user_id, store_id)
+		values(#{user_id}, #{store_id})
+	</insert>
+	<delete id="delete_like">
+		delete from likes
+		where user_id=#{user_id} and store_id=#{store_id}
+	</delete>
+	<update id="update_like">
+		update store
+      	set like_cnt = like_cnt + #{amount}
+      	where store_id = #{store_id};
+	</update>
 </mapper>

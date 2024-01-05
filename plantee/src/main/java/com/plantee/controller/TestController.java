@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class TestController {
+	@Autowired
+	SqlSession session;
+	String namespace = "com.plantee.mapper.MysqlMapper";
 
 	@ResponseBody
 	@RequestMapping("/home")
@@ -14,3 +17,4 @@ public class TestController {
 	}
 	
 }
+

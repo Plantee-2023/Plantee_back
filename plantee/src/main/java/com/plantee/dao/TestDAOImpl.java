@@ -10,6 +10,7 @@ public class TestDAOImpl implements TestDAO {
 	@Autowired
 	SqlSession session;
 	String namespace = "com.example.mapper.MysqlMapper";
+	String namespace = "com.plantee.mapper.MysqlMapper";
 
 	@Override
 	public String now() {

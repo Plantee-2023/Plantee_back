@@ -70,5 +70,4 @@ public class UserRestController {
 		vo.setImage(filePath + fileName);
 		dao.image(vo);
 	}
-
 }
