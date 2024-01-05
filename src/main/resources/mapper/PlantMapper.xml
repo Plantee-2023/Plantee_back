@@ -3,6 +3,18 @@
 <mapper namespace="com.plantee.mapper.PlantMapper">
 	<select id="read" resultType="hashmap">
 		select *
-		from store;
+		from plant
+		where plant_id = #{plant_id};
+	</select>
+	
+	<select id="list" resultType="hashmap">
+		select *
+		from plant
+		order by plant_id desc;
+	</select>
+	
+	<select id="total" resultType="int">
+		select count(*)
+		from plant;
 	</select>
 </mapper>
