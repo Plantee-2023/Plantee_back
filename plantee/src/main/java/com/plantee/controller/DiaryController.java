@@ -18,7 +18,7 @@ public class DiaryController {
 	@Autowired
 	DiaryDAO dao;
 	
-	@GetMapping("/list.json/{user_id}")
+	@GetMapping("/list.json/{uid}")
 	public List<HashMap<String, Object>> list(DiaryVO vo) {
 		return dao.list(vo);
 	}

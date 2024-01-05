@@ -7,6 +7,6 @@
 	<select id="read" resultType="hashmap">
 		select *, date_format(reg_date, '%Y-%m-%d %T') fmtdate, date_format(reg_date, '%Y-%m-%d %T') reg_date
 		from diary
-		where diary_id=#{diary_id};
+		where diary=#{diary_id};
 	</select>
 </mapper>

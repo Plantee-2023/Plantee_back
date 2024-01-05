@@ -11,7 +11,14 @@ public class DiaryVO {
 	private Date reg_date;
 	private int category;
 	private Date fmtdate;
+	private String uid;
 	
+	public String getUid() {
+		return uid;
+	}
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
 	public int getDiary_id() {
 		return diary_id;
 	}
@@ -64,7 +71,7 @@ public class DiaryVO {
 	public String toString() {
 		return "DiaryVO [diary_id=" + diary_id + ", user_id=" + user_id + ", plant_name=" + plant_name + ", image="
 				+ image + ", contents=" + contents + ", reg_date=" + reg_date + ", category=" + category + ", fmtdate="
-				+ fmtdate + "]";
+				+ fmtdate + ", uid=" + uid + "]";
 	}
 	
 }
