@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.plantee.domain.CommVO;
 import com.plantee.domain.QueryVO;
+import com.plantee.domain.UserVO;
 
 @Repository
 public class CommDAOImpl implements CommDAO {
@@ -27,14 +28,38 @@ public class CommDAOImpl implements CommDAO {
 
  	@Override
 	 
-		public List<HashMap<String, Object>> list(QueryVO vo) {
-			return session.selectList(namespace + ".list", vo);
+		public List<HashMap<String, Object>> list(QueryVO vo ) {
+ 			
+			return session.selectList(namespace + ".list", vo );
 		 
 	}
  
  	@Override
 	public int total() {
 		return session.selectOne(namespace + ".total");
+	}
+
+	@Override
+	public String address1(String uid) {
+		// TODO Auto-generated method stub
+		return session.selectOne(namespace + ".address1",uid);
+	}
+
+	@Override
+	public HashMap<String, Object> read(int post_id) {
+		return session.selectOne(namespace + ".read", post_id);
+	}
+
+	@Override
+	public void update(CommVO vo) {
+		session.selectOne(namespace + ".update", vo);
+		
+	}
+
+	@Override
+	public void delete(CommVO vo) {
+		session.selectOne(namespace + ".delete", vo);
+		
 	}
 	
 	
