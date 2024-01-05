@@ -11,6 +11,13 @@ java {
 	sourceCompatibility = '17'
 }
 
+
+compileJava {
+    options.compilerArgs += ["-parameters"]
+}
+
+
+
 repositories {
 	mavenCentral()
 }
@@ -36,3 +43,5 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+ 

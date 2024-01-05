@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.plantee.dao.CommDAO;
+import com.plantee.domain.ComentVO;
 import com.plantee.domain.CommVO;
 import com.plantee.domain.QueryVO;
 import com.plantee.domain.UserVO;
@@ -50,6 +51,19 @@ public class CommController {
 			 
 			return map;
 		}
+		
+		
+		@GetMapping("/list2.json")
+		public HashMap<String,Object> list2(QueryVO vo){
+			HashMap<String,Object> map=new HashMap<String,Object>();
+			map.put("list", dao.list2(vo));
+			map.put("total", dao.total());
+			 
+			return map;
+		}
+		
+		
+	
 		
 	 
 		

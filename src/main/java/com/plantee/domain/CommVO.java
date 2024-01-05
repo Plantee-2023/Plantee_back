@@ -6,6 +6,7 @@ public class CommVO {
 	
 	private int post_id;
 	private int user_id;
+	private int price;
 	private String uid;
 	private String nikname;
 	private String title;
@@ -14,6 +15,13 @@ public class CommVO {
 	private int  category;
 	
 	
+	
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
 	public int getPost_id() {
 		return post_id;
 	}
