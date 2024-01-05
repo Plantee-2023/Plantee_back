@@ -21,7 +21,6 @@ class PlanteeApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 	
 	@Autowired
 	UserDAO udao;
@@ -30,4 +29,5 @@ class PlanteeApplicationTests {
 	void read() {
 		udao.read("red");
 	}
+
 }

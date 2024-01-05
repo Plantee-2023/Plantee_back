@@ -43,4 +43,5 @@ public class UserDAOImpl implements UserDAO {
 	public void insert(UserVO vo) {
 		session.insert(namespace + ".insert", vo);
 	}
+
 }
