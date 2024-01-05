@@ -33,6 +33,11 @@ public class StoreDAOImpl implements StoreDAO {
 		//vo.setStart((vo.getPage() - 1) * vo.getSize());
 		return session.selectList(namespace + ".list", vo);
 	}
+	
+	@Override
+	public void delete(int store_id) {
+		session.delete(namespace + ".delete", store_id);
+	}
 
 	@Override
 	public void insert(StoreVO vo) {
@@ -48,12 +53,6 @@ public class StoreDAOImpl implements StoreDAO {
 
 	@Override
 	public void image(StoreVO vo) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void delete(int store_id) {
 		// TODO Auto-generated method stub
 		
 	}

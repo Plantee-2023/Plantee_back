@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.plantee.mapper.StoreMapper">
 	<select id="read" resultType="hashmap">
-		select *, date_format(reg_date, '%Y-%m-%d %T') fmtdate, format(price, 0) fmtprice
-		from store
-		where store_id = #{store_id};
+		select s.*, u.uid, date_format(s.reg_date, '%Y-%m-%d %T') fmtdate, format(s.price, 0) fmtprice
+		from store as s, users as u
+		where s.user_id=u.user_id and store_id = #{store_id};
 	</select>
 	<select id="info" resultType="hashmap">
 		select *, date_format(reg_date, '%Y-%m-%d %T') fmtdate, format(price, 0) fmtprice,
@@ -29,6 +29,10 @@
 		order by store_id desc
 		limit #{start}, #{size};
 	</select>
+	<delete id="delete">
+		delete from store
+		where store_id = #{store_id};
+	</delete>
 	<insert id="insert">
 		insert into store(user_id, title, contents, image, price, stock, level, tag, category)
 		values(#{user_id}, #{title}, #{contents}, #{image}, #{price}, #{stock}, #{level}, #{tag}, #{category});
@@ -38,15 +42,31 @@
 		set title=#{title}, contents=#{contents}, image=#{image}, price=#{price}, stock=#{stock}, level=#{level}, tag=#{tag}
 		where store_id = #{store_id};
 	</update>
+	
+	<select id="reviewlist" resultType="hashmap">
+		select c.*, u.uid, u.image, date_format(c.reg_date, '%Y-%m-%d %T') fmtdate
+		from comments as c, users as u
+		where category=5 and c.user_id=u.user_id and store_id = #{store_id};
+	</select>
+	<select id="reviewcnt" resultType="int">
+		select count(*) from comments
+		where store_id = #{store_id} and category=5;
+	</select>
+	
+	<select id="questionlist" resultType="hashmap">
+		select * from comments
+		where store_id = #{store_id} and category=6;
+	</select>
+	<select id="questioncnt" resultType="int">
+		select count(*) from comments
+		where store_id = #{store_id} and category=6 and upper_id!=0;
+	</select>
+	
 	<update id="image">
 		update store
 		set image = #{image}
 		where store_id = #{store_id};
 	</update>
-	<delete id="delete">
-		delete from store
-		where store_id = #{store_id};
-	</delete>
 	<insert id="like">
 		insert into likes(user_id, store_id)
 		values(#{user_id}, #{store_id})

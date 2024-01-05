@@ -14,7 +14,7 @@ import com.plantee.service.StoreService;
 
 @RestController
 @RequestMapping("/store")
-public class ShopRestController {
+public class StoreRestController {
 	@Autowired
 	StoreDAO dao;
 	
@@ -23,13 +23,17 @@ public class ShopRestController {
 	
 	@GetMapping("/read/{store_id}") 
 	public HashMap<String, Object> read(@PathVariable("store_id") int store_id) {
-		System.out.println("................." + store_id);
 		return dao.read(store_id);
 	}
 	
 	@GetMapping("/list.json")
 	public HashMap<String, Object> list(QueryVO vo) {
 		return service.list(vo);
+	}
+	
+	@GetMapping("/delete/{store_id}")
+	public void delete(@PathVariable("store_id") int store_id) {
+		dao.delete(store_id);
 	}
 	
 }
