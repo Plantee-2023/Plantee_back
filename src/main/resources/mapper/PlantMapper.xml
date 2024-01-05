@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.plantee.mapper.StoreMapper">
+<mapper namespace="com.plantee.mapper.PlantMapper">
 	<select id="read" resultType="hashmap">
 		select *
-		from store;
+		from plant
+		where plant_id = #{plant_id};
+	</select>
+	
+	<select id="list" resultType="hashmap">
+		select *
+		from plant
+		order by plant_id desc;
+	</select>
+	
+	<select id="total" resultType="int">
+		select count(*)
+		from plant;
 	</select>
 </mapper>
