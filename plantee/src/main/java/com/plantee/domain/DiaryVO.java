@@ -3,12 +3,33 @@ package com.plantee.domain;
 import java.util.Date;
 
 public class DiaryVO {
+	private int diary_id;
+	private int user_id;
 	private String plant_name;
 	private String image;
 	private String contents;
 	private Date reg_date;
 	private int category;
+	private Date fmtdate;
 	
+	public int getDiary_id() {
+		return diary_id;
+	}
+	public void setDiary_id(int diary_id) {
+		this.diary_id = diary_id;
+	}
+	public int getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
+	}
+	public Date getFmtdate() {
+		return fmtdate;
+	}
+	public void setFmtdate(Date fmtdate) {
+		this.fmtdate = fmtdate;
+	}
 	public String getPlant_name() {
 		return plant_name;
 	}
@@ -39,11 +60,11 @@ public class DiaryVO {
 	public void setCategory(int category) {
 		this.category = category;
 	}
-	
 	@Override
 	public String toString() {
-		return "DiaryVO [plant_name=" + plant_name + ", image=" + image + ", contents=" + contents + ", reg_date="
-				+ reg_date + ", category=" + category + "]";
+		return "DiaryVO [diary_id=" + diary_id + ", user_id=" + user_id + ", plant_name=" + plant_name + ", image="
+				+ image + ", contents=" + contents + ", reg_date=" + reg_date + ", category=" + category + ", fmtdate="
+				+ fmtdate + "]";
 	}
-
+	
 }

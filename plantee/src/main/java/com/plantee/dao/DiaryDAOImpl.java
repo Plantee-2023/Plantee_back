@@ -20,4 +20,9 @@ public class DiaryDAOImpl implements DiaryDAO{
 		return session.selectList(namespace + ".list", vo);
 	}
 
+	@Override
+	public HashMap<String, Object> read(int diary_id) {
+		return session.selectOne(namespace +".read", diary_id);
+	}
+
 }
