@@ -2,6 +2,7 @@ package com.plantee.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,20 +19,19 @@ public class StoreDAOImpl implements StoreDAO {
 	String namespace = "com.plantee.mapper.StoreMapper";
 
 	@Override
-	public HashMap<String, Object> read(int store_id) {
-		return session.selectOne(namespace +".read", store_id);
-	}
-
-	@Override
-	public int total(QueryVO vo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public List<HashMap<String, Object>> list(QueryVO vo) {
 		//vo.setStart((vo.getPage() - 1) * vo.getSize());
 		return session.selectList(namespace + ".list", vo);
+	}
+	
+	@Override
+	public int total(QueryVO vo) {
+		return session.selectOne(namespace + ".total", vo);
+	}
+	
+	@Override
+	public HashMap<String, Object> read(int store_id) {
+		return session.selectOne(namespace +".read", store_id);
 	}
 	
 	@Override
@@ -74,5 +74,25 @@ public class StoreDAOImpl implements StoreDAO {
 		// TODO Auto-generated method stub
 		
 	}
+	
+
+	// Comments
+	@Override
+	public List<Map<String, Object>> review_list(int store_id) {
+		List<Map<String, Object>> resultMaps = session.selectList(namespace + ".reviewlist", store_id); 
+		return resultMaps;
+	}
+
+	@Override
+	public int review_cnt(int store_id) {
+		return session.selectOne(namespace + ".reviewcnt", store_id);
+	}
+
+	@Override
+	public int stars_avg(int store_id) {
+		return session.selectOne(namespace + ".starsavg", store_id);
+	}
+
+
 
 }

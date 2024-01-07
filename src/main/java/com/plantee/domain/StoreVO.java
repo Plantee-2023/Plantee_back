@@ -10,7 +10,7 @@ public class StoreVO {
 	private int price;
 	private int stock;
 	private int level;
-	private int view_cnt;
+	private int review_cnt;
 	private int like_cnt;
 	private int category;
 	private Date reg_date;
@@ -19,8 +19,9 @@ public class StoreVO {
 	@Override
 	public String toString() {
 		return "StoreVO [title=" + title + ", contents=" + contents + ", image=" + image + ", tag=" + tag + ", price="
-				+ price + ", stock=" + stock + ", level=" + level + ", view_cnt=" + view_cnt + ", like_cnt=" + like_cnt
-				+ ", category=" + category + ", reg_date=" + reg_date + ", mdfy_date=" + mdfy_date + "]";
+				+ price + ", stock=" + stock + ", level=" + level + ", review_cnt=" + review_cnt + ", like_cnt="
+				+ like_cnt + ", category=" + category + ", reg_date=" + reg_date
+				+ ", mdfy_date=" + mdfy_date + "]";
 	}
 
 	public String getTitle() {
@@ -80,11 +81,11 @@ public class StoreVO {
 	}
 
 	public int getView_cnt() {
-		return view_cnt;
+		return review_cnt;
 	}
 
 	public void setView_cnt(int view_cnt) {
-		this.view_cnt = view_cnt;
+		this.review_cnt = view_cnt;
 	}
 
 	public int getLike_cnt() {
@@ -94,7 +95,7 @@ public class StoreVO {
 	public void setLike_cnt(int like_cnt) {
 		this.like_cnt = like_cnt;
 	}
-
+	
 	public int getCategory() {
 		return category;
 	}
