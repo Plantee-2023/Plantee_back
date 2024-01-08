@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,7 +27,11 @@ public class DiaryController {
    
    @GetMapping("/read/{diary_id}") 
    public HashMap<String, Object> read(@PathVariable("diary_id") int diary_id) {
-      System.out.println("................." + diary_id);
       return dao.read(diary_id);
+   }
+   
+   @PostMapping("/delete/{diary_id}")
+   public void delete(@PathVariable("diary_id") int diary_id) {
+	   dao.delete(diary_id);
    }
 }
