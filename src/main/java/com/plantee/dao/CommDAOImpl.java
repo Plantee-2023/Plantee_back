@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.plantee.domain.ComentVO;
 import com.plantee.domain.CommVO;
 import com.plantee.domain.QueryVO;
 import com.plantee.domain.UserVO;
@@ -15,7 +16,7 @@ import com.plantee.domain.UserVO;
 public class CommDAOImpl implements CommDAO {
 	@Autowired
 	SqlSession session;
-	String namespace = "com.example.mapper.CommMapper";
+	String namespace = "com.plantee.mapper.CommMapper";
 	
 	
 	 
@@ -32,6 +33,15 @@ public class CommDAOImpl implements CommDAO {
  			
 			return session.selectList(namespace + ".list", vo );
 		 
+	}
+ 	
+
+ 	
+
+	@Override
+	public List<HashMap<String, Object>> list2(QueryVO vo) {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace + ".list2", vo );
 	}
  
  	@Override
@@ -61,6 +71,7 @@ public class CommDAOImpl implements CommDAO {
 		session.selectOne(namespace + ".delete", vo);
 		
 	}
+
 	
 	
 	

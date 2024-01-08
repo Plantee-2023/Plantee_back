@@ -15,17 +15,17 @@ import com.plantee.domain.DiaryVO;
 @RestController
 @RequestMapping("/diary")
 public class DiaryController {
-   @Autowired
-   DiaryDAO dao;
-   
-   @GetMapping("/list.json/{uid}")
-   public List<HashMap<String, Object>> list(DiaryVO vo) {
-      return dao.list(vo);
-   }
-   
-   @GetMapping("/read/{diary_id}") 
-   public HashMap<String, Object> read(@PathVariable("diary_id") int diary_id) {
-      System.out.println("................." + diary_id);
-      return dao.read(diary_id);
-   }
+	@Autowired
+	DiaryDAO dao;
+	
+	@GetMapping("/list.json/{uid}")
+	public List<HashMap<String, Object>> list(DiaryVO vo) {
+		return dao.list(vo);
+	}
+	
+	@GetMapping("/read/{diary_id}") 
+	public HashMap<String, Object> read(@PathVariable("diary_id") int diary_id) {
+		System.out.println("................." + diary_id);
+		return dao.read(diary_id);
+	}
 }
