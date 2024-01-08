@@ -2,14 +2,15 @@ package com.plantee.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.plantee.domain.QueryVO;
 import com.plantee.domain.StoreVO;
 
 public interface StoreDAO {
+	public List<HashMap<String, Object>> list(QueryVO vo);
 	public HashMap<String, Object> read(int store_id);
 	public int total(QueryVO vo);
-	public List<HashMap<String, Object>> list(QueryVO vo);
 	public void delete(int store_id);
 	public void insert(StoreVO vo);
 	public void update(StoreVO vo);
@@ -18,4 +19,12 @@ public interface StoreDAO {
 	public void like(int user_id, int store_id);
 	public void update_like(int store_id, int amount);
 	public void delete_like(int user_id, int store_id);
+	
+	// Comments
+	public List<Map<String, Object>> review_list(int store_id);
+	public int review_cnt(int store_id);
+	public int stars_avg(int store_id);
+	public List<Map<String, Object>> question_list(int store_id);
+	public int question_cnt(int store_id);
+	
 }

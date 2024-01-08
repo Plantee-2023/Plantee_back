@@ -75,5 +75,3 @@ WHERE uid = #{uid};
     
     
 </mapper>
-
-

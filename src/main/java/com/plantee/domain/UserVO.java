@@ -13,7 +13,7 @@ public class UserVO {
 	private String image;
 	private String email;
 	private String seller_yn;
-	private Date reg_date;
+	private String reg_date;
 	private Date mdfy_date;
 	private int level;
 	private int exp;
@@ -106,11 +106,11 @@ public class UserVO {
 		this.seller_yn = seller_yn;
 	}
 
-	public Date getReg_date() {
+	public String getReg_date() {
 		return reg_date;
 	}
 
-	public void setReg_date(Date reg_date) {
+	public void setReg_date(String reg_date) {
 		this.reg_date = reg_date;
 	}
 
