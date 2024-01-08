@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.plantee.domain.CommentsVO;
 import com.plantee.domain.QueryVO;
 import com.plantee.domain.StoreVO;
 
@@ -24,7 +25,7 @@ public interface StoreDAO {
 	public List<Map<String, Object>> review_list(int store_id);
 	public int review_cnt(int store_id);
 	public int stars_avg(int store_id);
-	public List<Map<String, Object>> question_list(int store_id);
+	public List<Map<String, Object>> question_list(CommentsVO vo);
 	public int question_cnt(int store_id);
 	
 }

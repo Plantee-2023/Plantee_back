@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.plantee.domain.CommentsVO;
 import com.plantee.domain.QueryVO;
 import com.plantee.domain.StoreVO;
 
@@ -94,8 +95,8 @@ public class StoreDAOImpl implements StoreDAO {
 	}
 
 	@Override
-	public List<Map<String, Object>> question_list(int store_id) {
-		List<Map<String, Object>> questionMaps = session.selectList(namespace + ".questionlist", store_id); 
+	public List<Map<String, Object>> question_list(CommentsVO vo) {
+		List<Map<String, Object>> questionMaps = session.selectList(namespace + ".list_qna", vo); 
 		return questionMaps;
 	}
 

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.plantee.dao.StoreDAO;
+import com.plantee.domain.CommentsVO;
 import com.plantee.domain.QueryVO;
 import com.plantee.service.StoreService;
 
@@ -51,7 +52,13 @@ public class StoreRestController {
 	@GetMapping("/question/{store_id}")
 	public Map<String, Object> question_list(@PathVariable("store_id") int store_id) {
 		Map<String, Object> questionMap = new HashMap<String, Object>();
-		questionMap.put("questionList", dao.question_list(store_id));
+		
+		CommentsVO cvo = new CommentsVO(); 
+		cvo.setStore_id(store_id);
+		cvo.setLvl(0);
+		questionMap.put("questionList", dao.question_list(cvo));
+		cvo.setLvl(1);
+		questionMap.put("answerList", dao.question_list(cvo));
 		questionMap.put("questionCount", dao.question_cnt(store_id));
 		return questionMap;
 	}
