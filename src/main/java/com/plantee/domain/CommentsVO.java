@@ -13,12 +13,31 @@ public class CommentsVO extends UserVO {
 	private String reg_date;
 	private Date mdfy_date;
 	private int upper_id;
+	private int lvl;
+	private int comment_id;
+	
+	public int getComment_id() {
+		return comment_id;
+	}
+
+	public void setComment_id(int comment_id) {
+		this.comment_id = comment_id;
+	}
+
+	public int getLvl() {
+		return lvl;
+	}
+
+	public void setLvl(int lvl) {
+		this.lvl = lvl;
+	}
 
 	@Override
 	public String toString() {
 		return "CommentsVO [store_id=" + store_id + ", contents=" + contents + ", image=" + image + ", stars=" + stars
 				+ ", stars_avg=" + stars_avg + ", like_cnt=" + like_cnt + ", category=" + category + ", reg_date="
-				+ reg_date + ", mdfy_date=" + mdfy_date + ", upper_id=" + upper_id + "]";
+				+ reg_date + ", mdfy_date=" + mdfy_date + ", upper_id=" + upper_id + ", lvl=" + lvl + ", comment_id="
+				+ comment_id + "]";
 	}
 
 	public String getContents() {

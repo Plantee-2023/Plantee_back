@@ -77,7 +77,7 @@
 		where store_id = #{store_id} and category=5;
 	</select>
 	<select id="starsavg" resultType="int">
-		select Avg(stars) as stars_avg
+		select coalesce(Avg(stars), 0) as stars_avg
 		from comments 
 		where store_id = #{store_id} and category=5;
 	</select>
@@ -87,20 +87,24 @@
 		where category=6 and c.user_id=u.user_id and store_id = #{store_id};
 	</select>
 	<select id="list_qna"  resultType="com.plantee.domain.CommentsVO">
-		select * from 
-		(WITH RECURSIVE CTS AS (
-		    SELECT comments.* , 0 as lvl , cast(comments.comment_id as char) as path
-		    FROM comments WHERE upper_id = 0 AND store_id = 1
-		    UNION ALL
-		    SELECT u.*, CTS.lvl+1, concat(CTS.path, ',', cast(u.comment_id as char))
-		    FROM comments u
-		    INNER JOIN CTS ON u.upper_id = CTS.comment_id
-		)
-		SELECT comment_id, user_id, recipe_id, post_id, store_id, contents, image, stars, stars_avg, reg_date, mdfy_date, like_cnt, upper_id, category, 
-			lvl, cast(substring_index(path, ',', 1) as decimal) as group_id, path
-		from CTS 
-		ORDER BY group_id desc, path
-		) as t1 where t1.category = 6 and t1.store_id = #{store_id};
+		select t2.uid, t1.* from 
+			(WITH RECURSIVE CTS AS (
+									    SELECT comments.* , 0 as lvl , cast(comments.comment_id as char) as path
+									    FROM comments WHERE upper_id = 0 AND store_id = 1
+									    UNION ALL
+									    SELECT u.*, CTS.lvl+1, concat(CTS.path, ',', cast(u.comment_id as char))
+									    FROM comments u
+									    INNER JOIN CTS ON u.upper_id = CTS.comment_id
+									)
+			SELECT 
+				comment_id, user_id, recipe_id, post_id, store_id, contents, image, stars, stars_avg, reg_date, mdfy_date, like_cnt, upper_id, category, 
+				lvl, cast(substring_index(path, ',', 1) as decimal) as group_id, path
+			from CTS 
+			ORDER BY group_id desc, path) as t1 left join users t2 on t1.user_id = t2.user_id
+		where 1=1
+			and t1.category = 6 
+			and t1.store_id = #{store_id}
+			and t1.lvl = #{lvl};
 	</select>
 	<select id="questioncnt" resultType="int">
 		select count(*) from comments
