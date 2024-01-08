@@ -71,8 +71,5 @@ public class CommDAOImpl implements CommDAO {
 		session.selectOne(namespace + ".delete", vo);
 		
 	}
-
-	
-	
 	
 }

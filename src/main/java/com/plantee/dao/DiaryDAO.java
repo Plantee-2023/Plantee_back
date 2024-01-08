@@ -10,3 +10,4 @@ public interface DiaryDAO {
    public HashMap<String, Object> read(int diary_id);
    public void delete(int diary_id);
 }
+

@@ -1,25 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.plantee.mapper.StoreMapper">
-	<select id="read" resultType="hashmap">
-		select *, date_format(reg_date, '%Y-%m-%d %T') fmtdate, format(price, 0) fmtprice
-		from store
-		where store_id = #{store_id};
-	</select>
-	<select id="info" resultType="hashmap">
-		select *, date_format(reg_date, '%Y-%m-%d %T') fmtdate, format(price, 0) fmtprice,
-		(select count(*) from favorite where uid = #{uid} and store_id = #{store_id}) ucnt
-		from store
-		where store_id = #{store_id};
+	<select id="list" resultType="hashmap">
+		select s.*, u.uid, date_format(s.reg_date, '%Y-%m-%d %T') fmtdate, format(price,0) fmtprice
+		from store as s, users as u
+		where s.user_id=u.user_id
+		order by store_id desc;
 	</select>
 	<select id="total" resultType="int">
 		select count(*)
 		from store
-		where title like concat('%',#{query},'%') or contents like concat('%',#{query},'%');
-	</select>
-	<select id="list" resultType="hashmap">
-		select *, date_format(reg_date, '%Y-%m-%d %T') fmtdate, format(price,0) fmtprice
-		from store
+		where title like concat('%',#{query},'%') or contents like concat('%',#{query},'%')
 		order by store_id desc;
 	</select>
 	<select id="list2" resultType="hashmap">
@@ -29,6 +20,21 @@
 		order by store_id desc
 		limit #{start}, #{size};
 	</select>
+	<select id="read" resultType="hashmap">
+		select s.*, u.uid, date_format(s.reg_date, '%Y-%m-%d %T') fmtdate, format(s.price, 0) fmtprice
+		from store as s, users as u
+		where s.user_id=u.user_id and store_id = #{store_id};
+	</select>
+	<select id="info" resultType="hashmap">
+		select *, date_format(reg_date, '%Y-%m-%d %T') fmtdate, format(price, 0) fmtprice,
+		(select count(*) from favorite where uid = #{uid} and store_id = #{store_id}) ucnt
+		from store
+		where store_id = #{store_id};
+	</select>
+	<delete id="delete">
+		delete from store
+		where store_id = #{store_id};
+	</delete>
 	<insert id="insert">
 		insert into store(user_id, title, contents, image, price, stock, level, tag, category)
 		values(#{user_id}, #{title}, #{contents}, #{image}, #{price}, #{stock}, #{level}, #{tag}, #{category});
@@ -38,15 +44,12 @@
 		set title=#{title}, contents=#{contents}, image=#{image}, price=#{price}, stock=#{stock}, level=#{level}, tag=#{tag}
 		where store_id = #{store_id};
 	</update>
+	
 	<update id="image">
 		update store
 		set image = #{image}
 		where store_id = #{store_id};
 	</update>
-	<delete id="delete">
-		delete from store
-		where store_id = #{store_id};
-	</delete>
 	<insert id="like">
 		insert into likes(user_id, store_id)
 		values(#{user_id}, #{store_id})
@@ -60,4 +63,47 @@
       	set like_cnt = like_cnt + #{amount}
       	where store_id = #{store_id};
 	</update>
+	
+	<!-- Comments -->
+	<select id="reviewlist" resultType="com.plantee.domain.CommentsVO">
+		select c.*, u.uid, u.image, date_format(c.reg_date, '%Y년%m월%d일 %T') as reg_date
+		from comments as c, users as u
+		where category=5 and c.user_id=u.user_id and store_id = #{store_id}
+		order by comment_id desc;
+	</select>
+	<select id="reviewcnt" resultType="int">
+		select count(*) as review_cnt
+		from comments
+		where store_id = #{store_id} and category=5;
+	</select>
+	<select id="starsavg" resultType="int">
+		select Avg(stars) as stars_avg
+		from comments 
+		where store_id = #{store_id} and category=5;
+	</select>
+	<select id="questionlist" resultType="com.plantee.domain.CommentsVO">
+		select c.*, u.uid, u.image, date_format(c.reg_date, '%Y-%m-%d %T') fmtdate
+		from comments as c, users as u
+		where category=6 and c.user_id=u.user_id and store_id = #{store_id};
+	</select>
+	<select id="list_qna"  resultType="com.plantee.domain.CommentsVO">
+		select * from 
+		(WITH RECURSIVE CTS AS (
+		    SELECT comments.* , 0 as lvl , cast(comments.comment_id as char) as path
+		    FROM comments WHERE upper_id = 0 AND store_id = 1
+		    UNION ALL
+		    SELECT u.*, CTS.lvl+1, concat(CTS.path, ',', cast(u.comment_id as char))
+		    FROM comments u
+		    INNER JOIN CTS ON u.upper_id = CTS.comment_id
+		)
+		SELECT comment_id, user_id, recipe_id, post_id, store_id, contents, image, stars, stars_avg, reg_date, mdfy_date, like_cnt, upper_id, category, 
+			lvl, cast(substring_index(path, ',', 1) as decimal) as group_id, path
+		from CTS 
+		ORDER BY group_id desc, path
+		) as t1 where t1.category = 6 and t1.store_id = #{store_id};
+	</select>
+	<select id="questioncnt" resultType="int">
+		select count(*) from comments
+		where store_id = #{store_id} and category=6 and upper_id=0;
+	</select>
 </mapper>
