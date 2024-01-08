@@ -5,8 +5,16 @@
       select * from diary_view where uid=#{uid};
    </select>
    <select id="read" resultType="hashmap">
-      select *, date_format(reg_date, '%Y-%m-%d %T') fmtdate, date_format(reg_date, '%Y-%m-%d %T') reg_date
-      from diary
-      where diary=#{diary_id};
+      select * from diary_view where diary_id=#{diary_id};
    </select>
+   <insert id="insert">
+		insert into diary(user_id, plant_name, image, category, contents)
+		value (#{user_id}, #{plant_name}, #{image}, 8, #{contents});
+   </insert>
+   <update id="update">
+   
+   </update>
+   <delete id="delete">
+   		delete from diary where diary_id=#{diary_id};
+   </delete>
 </mapper>

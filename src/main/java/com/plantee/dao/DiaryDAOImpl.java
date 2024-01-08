@@ -25,4 +25,10 @@ public class DiaryDAOImpl implements DiaryDAO{
       return session.selectOne(namespace +".read", diary_id);
    }
 
+	@Override
+	public void delete(int diary_id) {
+		session.delete(namespace + ".delete", diary_id);
+	}
+
 }
+
