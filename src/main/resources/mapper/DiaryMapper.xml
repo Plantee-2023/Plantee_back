@@ -8,11 +8,13 @@
       select * from view_diary where diary_id=#{diary_id};
    </select>
    <insert id="insert">
-		insert into diary(user_id, plant_name, image, category, contents)
-		value (#{user_id}, #{plant_name}, #{image}, 8, #{contents});
+		insert into diary(user_id, plant_name, image, contents, plant_id)
+		value(#{user_id},#{plant_name}, #{image},#{contents}, #{plant_id});
    </insert>
    <update id="update">
-   
+		update diary
+		set plant_id = #{plant_id}, plant_name =#{plant_name}, contents=#{contents}, image=#{image}
+		where diary_id=#{diary_id};
    </update>
    <delete id="delete">
    		delete from diary where diary_id=#{diary_id};

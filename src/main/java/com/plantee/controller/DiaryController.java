@@ -30,6 +30,16 @@ public class DiaryController {
       return dao.read(diary_id);
    }
    
+   @PostMapping("/insert")
+	public void insert(@RequestBody DiaryVO vo) {
+		dao.insert(vo);
+	}
+	
+	@PostMapping("/update")
+	public void update(@RequestBody DiaryVO vo) {
+		dao.update(vo);
+	}
+   
    @PostMapping("/delete/{diary_id}")
    public void delete(@PathVariable("diary_id") int diary_id) {
 	   dao.delete(diary_id);
