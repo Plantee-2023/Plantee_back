@@ -162,5 +162,4 @@ public String toString() {
 			+ ", date_change=" + date_change + ", uid=" + uid + ", common_name=" + common_name + "]";
 }
    
-   
 }
