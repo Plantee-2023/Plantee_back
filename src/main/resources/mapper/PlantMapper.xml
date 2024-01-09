@@ -32,4 +32,9 @@
 			indoor = #{indoor}, poisonous_pet = #{poisonous_pet}, cuisine = #{cuisine}
 		where plant_id = #{plant_id}
 	</update>
+	
+	<delete id="delete">
+		delete from plant
+		where plant_id = #{plant_id};
+	</delete>
 </mapper>

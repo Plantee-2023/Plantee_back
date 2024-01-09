@@ -42,4 +42,9 @@ public class PlantDAOImpl implements PlantDAO {
 		session.update(namespace + ".update", vo);
 	}
 
+	@Override
+	public void delete(int plant_id) {
+		session.delete(namespace + ".delete", plant_id);
+	}
+
 }

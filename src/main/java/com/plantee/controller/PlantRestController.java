@@ -43,4 +43,9 @@ public class PlantRestController {
 	public void update(@RequestBody PlantVO vo) {
 		dao.update(vo);
 	}
+	
+	@GetMapping("/delete/{plant_id}")
+	public void delete(@PathVariable("plant_id") int plant_id) {
+		dao.delete(plant_id);
+	}
 }
