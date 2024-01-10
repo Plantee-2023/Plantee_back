@@ -47,8 +47,7 @@ public class StoreDAOImpl implements StoreDAO {
 
 	@Override
 	public void update(StoreVO vo) {
-		// TODO Auto-generated method stub
-		
+		session.update(namespace + ".update", vo);
 	}
 
 	@Override

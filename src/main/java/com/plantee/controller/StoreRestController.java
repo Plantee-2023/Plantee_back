@@ -50,9 +50,12 @@ public class StoreRestController {
 
 	@PostMapping("/insert")
 	public void insert(@RequestBody StoreVO vo) {
-		
 		dao.insert(vo);
-		
+	}
+	
+	@PostMapping("/update")
+	public void update(@RequestBody StoreVO vo) {
+		dao.update(vo);
 	}
 
 	@PostMapping("/ckupload")
