@@ -27,13 +27,13 @@ public class DiaryDAOImpl implements DiaryDAO{
 
    @Override
    public void insert(DiaryVO vo) {
-	   session.insert(namespace +".read", vo);
+	   session.insert(namespace +".insert", vo);
 	   
    }
    
    @Override
    public void update(DiaryVO vo) {
-	   session.update(namespace +".read", vo);
+	   session.update(namespace +".update", vo);
 	   
    }
 	@Override
