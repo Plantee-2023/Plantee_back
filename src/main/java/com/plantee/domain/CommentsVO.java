@@ -3,7 +3,10 @@ package com.plantee.domain;
 import java.util.Date;
 
 public class CommentsVO extends UserVO {
+	private int resipe_id;
+	private int post_id;
 	private int store_id;
+	private int comment_id;
 	private String contents;
 	private String image;
 	private int stars;
@@ -14,30 +17,45 @@ public class CommentsVO extends UserVO {
 	private Date mdfy_date;
 	private int upper_id;
 	private int lvl;
-	private int comment_id;
-	
+
+	@Override
+	public String toString() {
+		return "CommentsVO [resipe_id=" + resipe_id + ", post_id=" + post_id + ", store_id=" + store_id
+				+ ", comment_id=" + comment_id + ", contents=" + contents + ", image=" + image + ", stars=" + stars
+				+ ", stars_avg=" + stars_avg + ", like_cnt=" + like_cnt + ", category=" + category + ", reg_date="
+				+ reg_date + ", mdfy_date=" + mdfy_date + ", upper_id=" + upper_id + ", lvl=" + lvl + "]";
+	}
+
+	public int getResipe_id() {
+		return resipe_id;
+	}
+
+	public void setResipe_id(int resipe_id) {
+		this.resipe_id = resipe_id;
+	}
+
+	public int getPost_id() {
+		return post_id;
+	}
+
+	public void setPost_id(int post_id) {
+		this.post_id = post_id;
+	}
+
+	public int getStore_id() {
+		return store_id;
+	}
+
+	public void setStore_id(int store_id) {
+		this.store_id = store_id;
+	}
+
 	public int getComment_id() {
 		return comment_id;
 	}
 
 	public void setComment_id(int comment_id) {
 		this.comment_id = comment_id;
-	}
-
-	public int getLvl() {
-		return lvl;
-	}
-
-	public void setLvl(int lvl) {
-		this.lvl = lvl;
-	}
-
-	@Override
-	public String toString() {
-		return "CommentsVO [store_id=" + store_id + ", contents=" + contents + ", image=" + image + ", stars=" + stars
-				+ ", stars_avg=" + stars_avg + ", like_cnt=" + like_cnt + ", category=" + category + ", reg_date="
-				+ reg_date + ", mdfy_date=" + mdfy_date + ", upper_id=" + upper_id + ", lvl=" + lvl + ", comment_id="
-				+ comment_id + "]";
 	}
 
 	public String getContents() {
@@ -112,12 +130,12 @@ public class CommentsVO extends UserVO {
 		this.upper_id = upper_id;
 	}
 
-	public int getStore_id() {
-		return store_id;
+	public int getLvl() {
+		return lvl;
 	}
 
-	public void setStore_id(int store_id) {
-		this.store_id = store_id;
+	public void setLvl(int lvl) {
+		this.lvl = lvl;
 	}
 
 }
