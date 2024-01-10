@@ -2,37 +2,54 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.plantee.mapper.CommMapper">
 	<select id="list" resultType="hashmap">
-		 SELECT u.address1, u.uid, u.nickname,
+		SELECT u.address1, u.uid, u.nickname,
     (SELECT SUBSTRING_INDEX(u.address1, ' ', 1) AS address
      FROM users u 
-     WHERE p.user_id = u.user_id
+     WHERE p.uid = u.uid
      LIMIT 1
     ) AS address, p.*
     FROM posts p, users u 
-    WHERE p.user_id = u.user_id and p.category=3
+    WHERE p.uid = u.uid and p.category=3
+    and
+    where title like  concat('%',#{query},'%') or contents like concat('%',#{query},'%')
+   
     ORDER BY p.post_id DESC
     LIMIT #{start}, #{size};
 	</select>
 	
 	
 	<select id="list2" resultType="hashmap">
-		 SELECT u.address1, u.uid, u.nickname,
+		SELECT u.address1, u.uid, u.nickname,
     (SELECT SUBSTRING_INDEX(u.address1, ' ', 1) AS address
      FROM users u 
-     WHERE p.user_id = u.user_id
+     WHERE p.uid = u.uid
      LIMIT 1
     ) AS address, p.*
     FROM posts p, users u 
-    WHERE p.user_id = u.user_id and p.category=4
+    WHERE p.uid = u.uid and p.category=4
+    
+   
+ 
     ORDER BY p.post_id DESC
     LIMIT #{start}, #{size};
 	</select>
 	
 	
 	 <insert id="insert">
-    	insert into posts (category, uid,   title,contents,price)
-    	values(#{category}, #{uid}, #{title}, #{contents},#{price});
+    	insert into posts (category, uid,   title,contents,price,filter)
+    	values(#{category}, #{uid}, #{title}, #{contents},#{price},#{filter});
     </insert>
+    
+    <insert id="insert_reply">
+    	insert into posts (category, uid,   title,contents,price,filter,post_origin,reply)
+    	values(#{category}, #{uid}, #{title}, #{contents},#{price},#{filter},#{post_origin},#{reply});
+    </insert>
+    
+    <select id="reply_total" resultType="int">
+		 select count(*) 
+    from posts
+    where post_origin=#{post_origin};
+		</select>
     
     <delete id="delete">
 		delete from posts
@@ -50,11 +67,11 @@
 		 SELECT u.address1, u.uid, u.nickname,
     (SELECT SUBSTRING_INDEX(u.address1, ' ', 1) AS address
      FROM users u 
-     WHERE p.user_id = u.user_id
+     WHERE p.uid = u.uid
      LIMIT 1
     ) AS address, p.*
     FROM posts p, users u 
-	where p.user_id = u.user_id and p.post_id=#{post_id}
+	where p.uid = u.uid and p.post_id=#{post_id}
 		</select>
 	
 	
@@ -70,8 +87,12 @@ WHERE uid = #{uid};
     </select>
     
     
+ 
+ 
+ 
+</mapper>
 
 	
     
     
-</mapper>
+ 
