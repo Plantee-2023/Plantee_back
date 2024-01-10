@@ -50,8 +50,9 @@ public class StoreRestController {
 
 	@PostMapping("/insert")
 	public void insert(@RequestBody StoreVO vo) {
-		System.out.println(vo.toString());
+		
 		dao.insert(vo);
+		
 	}
 
 	@PostMapping("/ckupload")

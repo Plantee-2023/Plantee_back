@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.plantee.mapper.StoreMapper">
 	<select id="list" resultType="hashmap">
-		select s.*, u.uid, date_format(s.reg_date, '%Y-%m-%d %T') fmtdate, format(price,0) fmtprice
+		select s.*, u.uid, u.seller_yn, date_format(s.reg_date, '%Y-%m-%d %T') fmtdate, format(price,0) fmtprice
 		from store as s, users as u
 		where s.user_id=u.user_id
 		order by store_id desc;
@@ -37,7 +37,7 @@
 	</delete>
 	<insert id="insert">
 		insert into store(user_id, title, contents, image, price, stock, level, tag, category)
-		values(#{user_id}, #{title}, #{contents}, #{image}, #{price}, #{stock}, #{level}, #{tag}, #{category});
+		select (select user_id from users where uid = #{uid} and seller_yn = "y"), #{title}, #{contents}, #{image}, #{price}, #{stock}, #{level}, #{tag}, #{category};
 	</insert>
 	<update id="update">
 		update store
