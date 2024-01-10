@@ -2,8 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.plantee.mapper.DiaryMapper">
 	<select id="list" resultType="hashmap">
-		select *,date_format(reg_date, '%Y-%m-%d %T') fmtdate
-		from diary;
-	</select>
-	<select id=""></select>
+      select * from view_diary where uid=#{uid};
+   </select>
+   <select id="read" resultType="hashmap">
+      select * from view_diary where diary_id=#{diary_id};
+   </select>
+   <insert id="insert">
+		insert into diary(user_id, plant_name, image, contents, plant_id)
+		value(#{user_id},#{plant_name}, #{image},#{contents}, #{plant_id});
+   </insert>
+   <update id="update">
+		update diary
+		set plant_id = #{plant_id}, plant_name =#{plant_name}, contents=#{contents}, image=#{image}
+		where diary_id=#{diary_id};
+   </update>
+   <delete id="delete">
+   		delete from diary where diary_id=#{diary_id};
+   </delete>
 </mapper>

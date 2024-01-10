@@ -40,7 +40,7 @@ import com.google.cloud.storage.StorageOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.plantee.dao.CommDAO;
-import com.plantee.domain.ComentVO;
+import com.plantee.domain.CommentsVO;
 import com.plantee.domain.CommVO;
 import com.plantee.domain.QueryVO;
 import com.plantee.domain.UserVO;

@@ -36,5 +36,4 @@ public class QueryVO { // DTO
 		return "QueryVO [query=" + query + ", size=" + size + ", page=" + page + ", start=" + start + "]";
 	}
 
-	 
 }

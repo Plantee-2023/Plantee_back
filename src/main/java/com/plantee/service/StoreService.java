@@ -11,4 +11,7 @@ public interface StoreService {
 	
 	public void like(int user_id, int store_id);
 	public void delete_like(int user_id, int store_id);
+	
+	// Comments
+
 }

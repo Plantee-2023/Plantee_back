@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.plantee.mapper.CartMapper">
+	<select id="list" resultType="hashmap">
+        select *, price*qnt as sum, format(price*qnt, 0) as fmtsum
+        from view_cart
+        where user_id = #{user_id}
+		order by reg_date desc;
+    </select>
+    <select id="total" resultType="int">
+    	select count(*)
+    	from cart
+    	where user_id = #{user_id};
+    </select>
+    <select id="sum" resultType="string">
+		select format(sum(price*qnt), 0) as fmtsum
+		from view_cart
+		where user_id = #{user_id};
+	</select>
+	<update id="update">
+		update cart
+		set qnt = qnt + #{qnt}
+		where store_id = #{store_id} and user_id = #{user_id};
+	</update>
+	<update id="update_qnt">
+		update cart
+		set qnt = #{qnt}
+		where cart_id = #{cart_id};
+	</update>
+	<select id="check" resultType="int">
+		select count(*)
+		from cart
+		where store_id = #{store_id} and user_id = #{user_id};
+	</select>
+	<insert id="insert">
+		insert into cart(store_id, user_id)
+		values(#{store_id}, #{user_id});
+	</insert>
+</mapper>

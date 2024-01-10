@@ -7,7 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.plantee.domain.ComentVO;
+import com.plantee.domain.CommentsVO;
 import com.plantee.domain.CommVO;
 import com.plantee.domain.QueryVO;
 import com.plantee.domain.UserVO;
