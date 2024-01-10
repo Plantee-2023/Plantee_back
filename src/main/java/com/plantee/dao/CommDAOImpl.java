@@ -26,6 +26,12 @@ public class CommDAOImpl implements CommDAO {
 		session.insert(namespace + ".insert", vo);
 		
 	}
+	
+	@Override
+	public void insert_reply(CommVO vo) {
+		session.insert(namespace + ".insert_reply", vo);
+		
+	}
 
  	@Override
 	 
@@ -72,6 +78,14 @@ public class CommDAOImpl implements CommDAO {
 		
 	}
 
+	@Override
+	public int reply_total(int post_origin) {
+		// TODO Auto-generated method stub
+		return session.selectOne(namespace + ".reply_total", post_origin);
+	}
+
+	 
+ 
 	
 	
 	

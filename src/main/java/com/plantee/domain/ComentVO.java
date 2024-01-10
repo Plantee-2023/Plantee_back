@@ -5,19 +5,48 @@ import java.util.Date;
 public class ComentVO {
 
 	private int user_id;
+	private String uid;
 	private int recipe_id;
 	private int post_id;
 	private int store_id;
 	private String contents;
 	private String image;
 	private int stars;
+	
 	private Date reg_date;
 	private Date mdfy_date;
 	private int like_cnt;
 	private int upper_id;
+	private int comment_id;
 	
 	
 	
+	
+
+	public int getComment_id() {
+		return comment_id;
+	}
+
+
+
+	public void setComment_id(int comment_id) {
+		this.comment_id = comment_id;
+	}
+
+
+
+	public String getUid() {
+		return uid;
+	}
+
+
+
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
+
+
+
 	public int getUser_id() {
 		return user_id;
 	}

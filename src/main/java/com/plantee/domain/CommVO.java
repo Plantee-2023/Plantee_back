@@ -3,7 +3,8 @@ package com.plantee.domain;
 import java.util.Date;
 
 public class CommVO {
-	
+	private int post_origin;
+	private int reply;
 	private int post_id;
 	private int user_id;
 	private int price;
@@ -13,7 +14,46 @@ public class CommVO {
 	private String image;
 	private String contents;
 	private int  category;
+	private int filter;
 	
+	
+	
+	
+	public int getPost_origin() {
+		return post_origin;
+	}
+
+
+
+	public void setPost_origin(int post_origin) {
+		this.post_origin = post_origin;
+	}
+
+
+
+	public int getReply() {
+		return reply;
+	}
+
+
+
+	public void setReply(int reply) {
+		this.reply = reply;
+	}
+
+
+
+	public int getFilter() {
+		return filter;
+	}
+
+
+
+	public void setFilter(int filter) {
+		this.filter = filter;
+	}
+
+
 	
 	
 	public int getPrice() {
