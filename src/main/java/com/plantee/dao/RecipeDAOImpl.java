@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.plantee.domain.QueryVO;
+import com.plantee.domain.RecipeVO;
 
 @Repository
 public class RecipeDAOImpl implements RecipeDAO {
@@ -31,4 +32,19 @@ public class RecipeDAOImpl implements RecipeDAO {
 		return session.selectOne(namespace + ".total", vo);
 	}
 
+	@Override
+	public void insert(RecipeVO vo) {
+		session.insert(namespace + ".insert", vo);
+	}
+	
+	@Override
+	public void update(RecipeVO vo) {
+		session.update(namespace + ".update", vo);
+		
+	}
+
+	@Override
+	public void delete(int recipe_id) {
+		session.delete(namespace + ".delete", recipe_id);
+	}
 }

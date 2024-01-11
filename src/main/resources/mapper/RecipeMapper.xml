@@ -3,13 +3,13 @@
 <mapper namespace="com.plantee.mapper.RecipeMapper">
 	<select id="read" resultType="hashmap">
 		select *
-		from recipe
+		from view_recipe
 		where recipe_id = #{recipe_id};
 	</select>
 	
 	<select id="list" resultType="hashmap">
 		select *
-		from recipe
+		from view_recipe
 		order by recipe_id desc;
 	</select>
 	
@@ -17,4 +17,21 @@
 		select count(*)
 		from recipe;
 	</select>
+	
+	<update id="update">
+		update recipe
+		set title = #{title}, description = #{description}, image = #{image}, level = #{level}, mdfy_date=now()
+		where recipe_id = #{recipe_id}
+	</update>
+	
+	<insert id="insert">
+		insert into recipe(title, description, image, level, uid)
+		values(#{title}, #{description}, #{image}, #{level}, #{uid})
+	</insert>
+	
+	<delete id="delete">
+		delete from recipe
+		where recipe_id=#{recipe_id}
+	</delete>
+	
 </mapper>
