@@ -19,7 +19,13 @@ public class MagazineDAOImpl implements MagazineDAO{
 	
 	@Override
 	public List<HashMap<String, Object>> list(QueryVO vo) {
-		return session.selectList(namespace + ".list", vo);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("page", vo.getPage());
+		map.put("start",(vo.getPage()-1)*vo.getSize());
+		map.put("size", vo.getSize());
+		map.put("key", vo.getKey());
+		map.put("query", vo.getQuery());
+		return session.selectList(namespace + ".list", map);
 	}
 
 	@Override
@@ -53,6 +59,12 @@ public class MagazineDAOImpl implements MagazineDAO{
 	@Override
 	public void updateImage(MagazineVO vo) {
 		session.update(namespace + ".updateImage",vo);
+		
+	}
+
+	@Override
+	public void readCount(int view_cnt) {
+		session.update(namespace + ".readCount", view_cnt);
 		
 	}
 	

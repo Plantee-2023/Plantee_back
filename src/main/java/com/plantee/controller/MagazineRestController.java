@@ -2,6 +2,7 @@ package com.plantee.controller;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,13 +31,14 @@ public class MagazineRestController {
 	
 	@GetMapping("/read/{post_id}") 
 	public HashMap<String, Object> read(@PathVariable("post_id") int post_id) {
-		return dao.read(post_id);
+		return service.read(post_id);
 	}
 	
 	@GetMapping("/list.json")
 	public HashMap<String, Object> list(QueryVO vo) {
-		return service.list(vo, 1, 3, null, null);
+		return service.list(vo);
 	}
+	
 	
 	@PostMapping("/insert")
 	public void insert(@RequestBody MagazineVO vo) {
