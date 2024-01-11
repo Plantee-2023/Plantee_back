@@ -13,6 +13,6 @@ public interface MagazineDAO {
 	public void insert(MagazineVO vo);
 	public void update(MagazineVO vo);
 	public void delete(int post_id);
-	public void updateImage(MagazineVO vo);
+	public void image(MagazineVO vo);
 	public void readCount(int view_cnt);
 }

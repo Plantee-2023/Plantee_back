@@ -2,15 +2,14 @@ package com.plantee.controller;
 
 import java.io.File;
 import java.util.HashMap;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -39,7 +38,6 @@ public class MagazineRestController {
 		return service.list(vo);
 	}
 	
-	
 	@PostMapping("/insert")
 	public void insert(@RequestBody MagazineVO vo) {
 		dao.insert(vo);
@@ -56,20 +54,17 @@ public class MagazineRestController {
 	}
 	
 	//이미지 업로드
-		@PostMapping("/upload/image/{post_id}")
-		public void uploadImage(@RequestParam("post_id") int post_id, MultipartHttpServletRequest multi) {
-			try {
-				MultipartFile file = multi.getFile("file");
-				String filePath = "/upload/magazine";
-				String fileName = System.currentTimeMillis() + ".jpg";
-				file.transferTo(new File("C:" + filePath + fileName));
-				
-				MagazineVO vo = new MagazineVO();
-				vo.setPost_id(post_id);
-				vo.setImage(filePath + fileName);
-				dao.updateImage(vo);
-			}catch(Exception e){
-				System.out.println("이미지 업로드 :  오류" + e.toString());
-			}
+	@PostMapping("/image")
+	public void image(MagazineVO vo, MultipartHttpServletRequest multi) {
+		MultipartFile file = multi.getFile("file");
+		String path = "/upload/magazine/";
+		String fileName = System.currentTimeMillis() + ".jpg";
+		try {
+			file.transferTo(new File("C:" + path + fileName));
+			vo.setImage(path + fileName);
+			dao.image(vo);
+		} catch (Exception e) {
+			System.out.println("이미지 변경 오류 : " + e.toString());
 		}
+	}
 }
