@@ -43,4 +43,7 @@
 		delete from posts
 		where post_id = #{post_id};
 	</delete>
+	<update id="image">
+		update shop set image=#{image} where post_id=#{post_id}
+	</update>
 </mapper>
