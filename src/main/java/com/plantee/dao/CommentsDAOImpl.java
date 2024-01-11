@@ -11,7 +11,7 @@ import com.plantee.domain.QueryVO;
  
 
 @Repository
-public class ComentDAOImpl implements ComentDAO  {
+public class CommentsDAOImpl implements CommentsDAO  {
 	
 	@Autowired
 	SqlSession session;

@@ -12,4 +12,5 @@ public interface PlantDAO {
 	public int total(QueryVO vo);
 	public void insert(PlantVO vo);
 	public void update(PlantVO vo);
+	public void delete(int plant_id);
 }

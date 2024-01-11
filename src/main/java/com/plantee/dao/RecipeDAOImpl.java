@@ -7,19 +7,18 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.plantee.domain.PlantVO;
 import com.plantee.domain.QueryVO;
 
 @Repository
-public class PlantDAOImpl implements PlantDAO {
-
+public class RecipeDAOImpl implements RecipeDAO {
+	
 	@Autowired
 	SqlSession session;
-	String namespace = "com.plantee.mapper.PlantMapper";
+	String namespace = "com.plantee.mapper.RecipeMapper";
 
 	@Override
-	public HashMap<String, Object> read(int plant_id) {
-		return session.selectOne(namespace +".read", plant_id);
+	public HashMap<String, Object> read(int recipe_id) {
+		return session.selectOne(namespace +".read", recipe_id);
 	}
 
 	@Override
@@ -30,21 +29,6 @@ public class PlantDAOImpl implements PlantDAO {
 	@Override
 	public int total(QueryVO vo) {
 		return session.selectOne(namespace + ".total", vo);
-	}
-
-	@Override
-	public void insert(PlantVO vo) {
-		session.insert(namespace + ".insert", vo);
-	}
-
-	@Override
-	public void update(PlantVO vo) {
-		session.update(namespace + ".update", vo);
-	}
-
-	@Override
-	public void delete(int plant_id) {
-		session.delete(namespace + ".delete", plant_id);
 	}
 
 }

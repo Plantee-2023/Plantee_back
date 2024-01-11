@@ -7,7 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.plantee.domain.ComentVO;
+import com.plantee.domain.CommentsVO;
 import com.plantee.domain.CommVO;
 import com.plantee.domain.QueryVO;
 import com.plantee.domain.UserVO;
@@ -24,6 +24,12 @@ public class CommDAOImpl implements CommDAO {
 	@Override
 	public void insert(CommVO vo) {
 		session.insert(namespace + ".insert", vo);
+		
+	}
+	
+	@Override
+	public void insert_reply(CommVO vo) {
+		session.insert(namespace + ".insert_reply", vo);
 		
 	}
 
@@ -71,5 +77,16 @@ public class CommDAOImpl implements CommDAO {
 		session.selectOne(namespace + ".delete", vo);
 		
 	}
+
+	@Override
+	public int reply_total(int post_origin) {
+		// TODO Auto-generated method stub
+		return session.selectOne(namespace + ".reply_total", post_origin);
+	}
+
+	 
+ 
+	
+	
 	
 }

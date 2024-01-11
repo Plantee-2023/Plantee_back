@@ -28,7 +28,7 @@ public class QueryVO { // DTO
 		return start;
 	}
 	public void setStart(int start) {
-		this.start = (page-1) * size;
+		this.start = start;
 	}
 	
 	@Override

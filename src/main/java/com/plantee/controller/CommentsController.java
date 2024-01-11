@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.plantee.dao.ComentDAO;
+import com.plantee.dao.CommentsDAO;
 import com.plantee.domain.QueryVO;
 
  
@@ -24,10 +24,10 @@ import com.plantee.domain.QueryVO;
 @RequestMapping("/coment")
 
 
-public class ComentController {
+public class CommentsController {
 	
 	@Autowired
-	ComentDAO dao;
+	CommentsDAO dao;
 	
 	@GetMapping("/c_list.json")
     public List<HashMap<String, Object>> c_list(@RequestParam(value="post_id") int post_id,QueryVO vo   ){
