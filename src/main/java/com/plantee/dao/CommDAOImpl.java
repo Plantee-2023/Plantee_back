@@ -36,13 +36,12 @@ public class CommDAOImpl implements CommDAO {
  	@Override
 	 
 		public List<HashMap<String, Object>> list(QueryVO vo ) {
- 			
-			return session.selectList(namespace + ".list", vo );
+ 			return session.selectList(namespace + ".list", vo );
 		 
 	}
  	
 
- 	
+ 		
 
 	@Override
 	public List<HashMap<String, Object>> list2(QueryVO vo) {

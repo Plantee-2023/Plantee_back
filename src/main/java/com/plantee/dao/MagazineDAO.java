@@ -14,4 +14,5 @@ public interface MagazineDAO {
 	public void update(MagazineVO vo);
 	public void delete(int post_id);
 	public void updateImage(MagazineVO vo);
+	public void readCount(int view_cnt);
 }
