@@ -5,6 +5,7 @@ import java.util.Date;
 public class RecipeVO {
 
 	private int recipe_id;
+	private String uid;
 	private String title;
 	private String  description;
 	private String image;
@@ -21,6 +22,12 @@ public class RecipeVO {
 	}
 	public void setRecipe_id(int recipe_id) {
 		this.recipe_id = recipe_id;
+	}
+	public String getUid() {
+		return uid;
+	}
+	public void setUid(String uid) {
+		this.uid = uid;
 	}
 	public String getTitle() {
 		return title;
@@ -85,8 +92,9 @@ public class RecipeVO {
 	
 	@Override
 	public String toString() {
-		return "RecipeVO [recipe_id=" + recipe_id + ", title=" + title + ", description=" + description + ", image="
-				+ image + ", level=" + level + ", view_cnt=" + view_cnt + ", like_cnt=" + like_cnt + ", coment_cnt="
-				+ coment_cnt + ", category=" + category + ", reg_date=" + reg_date + ", mdfy_date=" + mdfy_date + "]";
+		return "RecipeVO [recipe_id=" + recipe_id + ", uid=" + uid + ", title=" + title + ", description=" + description
+				+ ", image=" + image + ", level=" + level + ", view_cnt=" + view_cnt + ", like_cnt=" + like_cnt
+				+ ", coment_cnt=" + coment_cnt + ", category=" + category + ", reg_date=" + reg_date + ", mdfy_date="
+				+ mdfy_date + "]";
 	}
 }
