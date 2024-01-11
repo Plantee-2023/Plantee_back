@@ -20,10 +20,10 @@ public class UserVO {
 
 	@Override
 	public String toString() {
-		return "UserVO [uid=" + uid + ", upass=" + upass + ", uname=" + uname + ", nickname=" + nickname + ", phone="
-				+ phone + ", address1=" + address1 + ", address2=" + address2 + ", image=" + image + ", email=" + email
-				+ ", seller_yn=" + seller_yn + ", reg_date=" + reg_date + ", mdfy_date=" + mdfy_date + ", level="
-				+ level + ", exp=" + exp + "]";
+		return "UserVO [ uid=" + uid + ", upass=" + upass + ", uname=" + uname + ", nickname="
+				+ nickname + ", phone=" + phone + ", address1=" + address1 + ", address2=" + address2 + ", image="
+				+ image + ", email=" + email + ", seller_yn=" + seller_yn + ", reg_date=" + reg_date + ", mdfy_date="
+				+ mdfy_date + ", level=" + level + ", exp=" + exp + "]";
 	}
 
 	public String getUid() {

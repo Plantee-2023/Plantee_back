@@ -9,7 +9,7 @@
    </select>
    <insert id="insert">
 		insert into diary(user_id, plant_name, image, contents, plant_id)
-		value(#{user_id},#{plant_name}, #{image},#{contents}, #{plant_id});
+		value((select user_id from users where uid = #{uid}), #{plant_name}, #{image},#{contents}, #{plant_id});
    </insert>
    <update id="update">
 		update diary
