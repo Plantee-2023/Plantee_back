@@ -91,6 +91,11 @@ public class StoreDAOImpl implements StoreDAO {
 	public int stars_avg(int store_id) {
 		return session.selectOne(namespace + ".starsavg", store_id);
 	}
+	
+	@Override
+	public void review_insert(CommentsVO vo) {
+		session.insert(namespace + ".reviewinsert", vo);
+	}
 
 	@Override
 	public List<Map<String, Object>> question_list(CommentsVO vo) {
@@ -102,5 +107,7 @@ public class StoreDAOImpl implements StoreDAO {
 	public int question_cnt(int store_id) {
 		return session.selectOne(namespace + ".questioncnt", store_id);
 	}
+
+
 
 }

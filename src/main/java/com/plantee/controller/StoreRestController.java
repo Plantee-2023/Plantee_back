@@ -89,11 +89,15 @@ public class StoreRestController {
 		resultMap.put("starsCount", dao.stars_avg(store_id));
 		return resultMap;
 	}
+	
+	@PostMapping("/review/insert")
+	public void review_insert(@RequestBody CommentsVO vo) {
+		dao.review_insert(vo);
+	}
 
 	@GetMapping("/question/{store_id}")
 	public Map<String, Object> question_list(@PathVariable("store_id") int store_id) {
 		Map<String, Object> questionMap = new HashMap<String, Object>();
-
 		CommentsVO cvo = new CommentsVO();
 		cvo.setStore_id(store_id);
 		cvo.setLvl(0);
