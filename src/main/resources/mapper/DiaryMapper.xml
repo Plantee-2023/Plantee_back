@@ -19,4 +19,9 @@
    <delete id="delete">
    		delete from diary where diary_id=#{diary_id};
    </delete>
+   <select id="storelist" resultType="hashmap">
+	   	select s.title, s.price, s.image
+		from store as s, view_diary as d
+		where d.care_level=s.level and diary_id=#{diary_id};
+   </select>
 </mapper>

@@ -41,6 +41,11 @@ public class DiaryDAOImpl implements DiaryDAO{
 		session.delete(namespace + ".delete", diary_id);
 	}
 
+	@Override
+	public List<HashMap<String, Object>> storelist(DiaryVO vo) {
+	      return session.selectList(namespace + ".storelist", vo);
+	}
+
 
 }
 
