@@ -2,7 +2,7 @@ package com.plantee.domain;
 
 import java.util.Date;
 
-public class DiaryVO {
+public class DiaryVO extends StoreVO{
 	private int diary_id;
 	private int user_id;
 	private int plant_id;
@@ -24,6 +24,7 @@ public class DiaryVO {
 	private Date date_change;
 	private String uid;
 	private String common_name;
+	
 
 	public int getDiary_id() {
 		return diary_id;
