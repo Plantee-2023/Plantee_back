@@ -29,4 +29,6 @@ public interface StoreDAO {
 	public List<Map<String, Object>> question_list(CommentsVO vo);
 	public int question_cnt(int store_id);
 	
+	public void delete_comment(int comment_id);
+	
 }

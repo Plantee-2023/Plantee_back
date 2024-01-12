@@ -66,9 +66,10 @@
 	
 	<!-- Comments -->
 	<select id="reviewlist" resultType="com.plantee.domain.CommentsVO">
-		select c.*, u.uid, u.image, date_format(c.reg_date, '%Y년%m월%d일 %T') as reg_date
+		select c.comment_id, c.user_id, c.store_id, c.contents, c.image, c.stars, c.stars_avg, c.reg_date, c.mdfy_date, c.like_cnt, c.upper_id, c.category,
+			u.uid, u.nickname, u.image, date_format(c.reg_date, '%Y-%m-%d %T') fmtdate
 		from comments as c, users as u
-		where category=5 and c.user_id=u.user_id and store_id = #{store_id}
+		where category=5 and c.user_id=u.user_id and store_id=100147
 		order by comment_id desc;
 	</select>
 	<select id="reviewcnt" resultType="int">
@@ -86,12 +87,12 @@
 		select (select user_id from users where uid = #{uid}), #{store_id}, #{contents}, #{stars}, #{category};
 	</insert>
 	<select id="questionlist" resultType="com.plantee.domain.CommentsVO">
-		select c.*, u.uid, u.image, date_format(c.reg_date, '%Y-%m-%d %T') fmtdate
+		select c.*, u.nickname, u.image, date_format(c.reg_date, '%Y-%m-%d %T') fmtdate
 		from comments as c, users as u
 		where category=6 and c.user_id=u.user_id and store_id = #{store_id};
 	</select>
 	<select id="list_qna"  resultType="com.plantee.domain.CommentsVO">
-		select t2.uid, t1.* from 
+		select t2.uid, t2.nickname, t1.* from 
 		(WITH RECURSIVE CTS AS (
 		    SELECT comments.* , 0 as lvl , cast(comments.comment_id as char) as path
 		    FROM comments WHERE upper_id = 0 AND store_id = 100147
@@ -103,10 +104,13 @@
 		SELECT comment_id, user_id, recipe_id, post_id, store_id, contents, image, stars, stars_avg, reg_date, mdfy_date, like_cnt, upper_id, category, 
 			lvl, cast(substring_index(path, ',', 1) as decimal) as group_id, path
 		from CTS 
-		ORDER BY group_id desc, path) as t1 left join users t2 on t1.user_id = t2.user_id where t1.category = 6 and t1.store_id = #{store_id} and t1.lvl = #{lvl};
+		ORDER BY group_id desc, path, comment_id desc) as t1 left join users t2 on t1.user_id = t2.user_id where t1.category = 6 and t1.store_id = #{store_id} and t1.lvl = #{lvl};
 	</select>
 	<select id="questioncnt" resultType="int">
 		select count(*) from comments
 		where store_id = #{store_id} and category=6 and upper_id=0;
 	</select>
+	<delete id="comment_delete">
+		delete from comments where comment_id = #{comment_id};
+	</delete>
 </mapper>

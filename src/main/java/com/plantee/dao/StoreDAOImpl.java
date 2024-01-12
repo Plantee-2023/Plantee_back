@@ -108,6 +108,11 @@ public class StoreDAOImpl implements StoreDAO {
 		return session.selectOne(namespace + ".questioncnt", store_id);
 	}
 
+	@Override
+	public void delete_comment(int comment_id) {
+		session.delete(namespace + ".comment_delete", comment_id);
+	}
+
 
 
 }

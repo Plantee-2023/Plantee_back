@@ -90,7 +90,7 @@ public class StoreRestController {
 		return resultMap;
 	}
 	
-	@PostMapping("/review/insert")
+	@PostMapping("/comment/insert")
 	public void review_insert(@RequestBody CommentsVO vo) {
 		dao.review_insert(vo);
 	}
@@ -106,6 +106,11 @@ public class StoreRestController {
 		questionMap.put("answerList", dao.question_list(cvo));
 		questionMap.put("questionCount", dao.question_cnt(store_id));
 		return questionMap;
+	}
+	
+	@GetMapping("/delete/comment/{comment_id}")
+	public void delete_comment(@PathVariable("comment_id") int comment_id) {
+		dao.delete_comment(comment_id);
 	}
 
 }
