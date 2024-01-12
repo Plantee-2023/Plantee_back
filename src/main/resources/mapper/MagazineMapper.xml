@@ -10,28 +10,22 @@
 		select *
 		from posts p, users u
 		where p.user_id = u.user_id and category=7
-		<if test="key=='title'">
-			and title like concat('%',#{query},'%')
-		</if>
 		order by post_id desc
 		limit #{start},#{size}
 	</select>
     <select id="total" resultType="int">
-    	select count(*)
-    	from posts p,users u
-    	where p.user_id = u.user_id and category=7
-    	<if test="key=='title'">
-			and title like concat('%',#{query},'%')
-		</if>
-		limit #{start}, ${size};
-    </select>
+		select count(*)
+		from posts p, users u
+		where p.user_id = u.user_id and category=7
+		order by post_id desc
+	</select>
 	<insert id="insert">
-		insert into posts(image, contents, category, title, user_id, nickname, uid)
-		values(#{image}, #{contents}, #{category},#{title},#{user_id}, #{nickname}, #{uid});
+		insert into posts(image, contents, category, title, user_id, nickname, uid ,post_id)
+		values(#{image}, #{contents}, #{category},#{title},#{user_id}, #{nickname}, #{uid}, #{post_id});
 	</insert>
 	<update id="update">
 		update posts
-		set title = #{title}, image = #{image}, contents = #{contents}, uid=#{uid}
+		set title = #{title}, image = #{image}, contents = #{contents}, uid = #{uid}
 		where post_id = #{post_id}
 	</update>
 	<update id="readCount">
@@ -44,6 +38,6 @@
 		where post_id = #{post_id};
 	</delete>
 	<update id="image">
-		update shop set image=#{image} where post_id=#{post_id}
+		update posts set image=#{image} where post_id=post_id
 	</update>
 </mapper>
