@@ -78,6 +78,31 @@ public class StoreRestController {
 		}
 		return map;
 	}
+	
+	@PostMapping("/image")
+	public void image(StoreVO vo, MultipartHttpServletRequest multi) {
+		MultipartFile file = multi.getFile("file");
+		String path = "/upload/plantee/";
+		String fileName = System.currentTimeMillis() + ".jpg";
+		try {
+			file.transferTo(new File("c:" + path + fileName));
+			vo.setImage(path + fileName);
+			dao.image(vo);
+		} catch (Exception e) {
+			System.out.println("이미지변경 : " + e.toString());
+		}
+	}
+	
+	// like
+	@GetMapping("/insert/like")
+	public void like(int user_id, int store_id) {
+		service.like(user_id, store_id);
+	}
+	
+	@GetMapping("/delete/like")
+	public void delete_like(int user_id, int store_id) {
+		service.delete_like(user_id, store_id);
+	}
 
 	
 	// Comments

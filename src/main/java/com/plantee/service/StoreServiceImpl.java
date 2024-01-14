@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.plantee.dao.StoreDAO;
 import com.plantee.domain.QueryVO;
@@ -28,18 +29,20 @@ public class StoreServiceImpl implements StoreService {
 		
 	}
 
+	@Transactional
 	@Override
 	public void like(int user_id, int store_id) {
-		// TODO Auto-generated method stub
-		
+		dao.like(user_id, store_id);
+		dao.update_like(1, user_id);
 	}
 
 	@Override
 	public void delete_like(int user_id, int store_id) {
-		// TODO Auto-generated method stub
-		
+		dao.delete_like(user_id, store_id);
+		dao.update_like(-1, user_id);
 	}
 
+	
 	// Comments
 
 

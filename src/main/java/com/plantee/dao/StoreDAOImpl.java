@@ -14,27 +14,27 @@ import com.plantee.domain.StoreVO;
 
 @Repository
 public class StoreDAOImpl implements StoreDAO {
-	
+
 	@Autowired
 	SqlSession session;
 	String namespace = "com.plantee.mapper.StoreMapper";
 
 	@Override
 	public List<HashMap<String, Object>> list(QueryVO vo) {
-		//vo.setStart((vo.getPage() - 1) * vo.getSize());
+		vo.setStart((vo.getPage() - 1) * vo.getSize());
 		return session.selectList(namespace + ".list", vo);
 	}
-	
+
 	@Override
 	public int total(QueryVO vo) {
 		return session.selectOne(namespace + ".total", vo);
 	}
-	
+
 	@Override
 	public HashMap<String, Object> read(int store_id) {
-		return session.selectOne(namespace +".read", store_id);
+		return session.selectOne(namespace + ".read", store_id);
 	}
-	
+
 	@Override
 	public void delete(int store_id) {
 		session.delete(namespace + ".delete", store_id);
@@ -52,33 +52,38 @@ public class StoreDAOImpl implements StoreDAO {
 
 	@Override
 	public void image(StoreVO vo) {
-		// TODO Auto-generated method stub
-		
+		session.update(namespace + ".image", vo);
 	}
 
 	@Override
 	public void like(int user_id, int store_id) {
-		// TODO Auto-generated method stub
-		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("user_id", user_id);
+		map.put("store_id", store_id);
+		session.insert(namespace + ".heart", map);
 	}
 
 	@Override
 	public void update_like(int store_id, int amount) {
-		// TODO Auto-generated method stub
-		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("store_id", store_id);
+		map.put("amount", amount);
+		session.update(namespace + ".update_heart", map);
 	}
 
 	@Override
 	public void delete_like(int user_id, int store_id) {
-		// TODO Auto-generated method stub
-		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("user_id", user_id);
+		map.put("store_id", store_id);
+		session.delete(namespace + ".delete_heart", map);
 	}
-	
 
+	
 	// Comments
 	@Override
 	public List<Map<String, Object>> review_list(int store_id) {
-		List<Map<String, Object>> resultMaps = session.selectList(namespace + ".reviewlist", store_id); 
+		List<Map<String, Object>> resultMaps = session.selectList(namespace + ".reviewlist", store_id);
 		return resultMaps;
 	}
 
@@ -91,7 +96,7 @@ public class StoreDAOImpl implements StoreDAO {
 	public int stars_avg(int store_id) {
 		return session.selectOne(namespace + ".starsavg", store_id);
 	}
-	
+
 	@Override
 	public void review_insert(CommentsVO vo) {
 		session.insert(namespace + ".reviewinsert", vo);
@@ -99,7 +104,7 @@ public class StoreDAOImpl implements StoreDAO {
 
 	@Override
 	public List<Map<String, Object>> question_list(CommentsVO vo) {
-		List<Map<String, Object>> questionMaps = session.selectList(namespace + ".list_qna", vo); 
+		List<Map<String, Object>> questionMaps = session.selectList(namespace + ".list_qna", vo);
 		return questionMaps;
 	}
 
@@ -112,7 +117,5 @@ public class StoreDAOImpl implements StoreDAO {
 	public void delete_comment(int comment_id) {
 		session.delete(namespace + ".comment_delete", comment_id);
 	}
-
-
 
 }

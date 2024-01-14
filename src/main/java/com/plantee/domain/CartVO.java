@@ -6,16 +6,19 @@ public class CartVO {
 	private int cart_id;
 	private int user_id;
 	private int store_id;
+	private int purchase_id;
 	private int price;
 	private int qnt;
 	private String payment;
 	private String uid;
+	private String nickname;
 	private Date reg_date;
 
 	@Override
 	public String toString() {
-		return "CartVO [cart_id=" + cart_id + ", user_id=" + user_id + ", store_id=" + store_id + ", price=" + price
-				+ ", qnt=" + qnt + ", payment=" + payment + ", uid=" + uid + ", reg_date=" + reg_date + "]";
+		return "CartVO [cart_id=" + cart_id + ", user_id=" + user_id + ", store_id=" + store_id + ", purchase_id="
+				+ purchase_id + ", price=" + price + ", qnt=" + qnt + ", payment=" + payment + ", uid=" + uid
+				+ ", nickname=" + nickname + ", reg_date=" + reg_date + "]";
 	}
 
 	public int getCart_id() {
@@ -40,6 +43,14 @@ public class CartVO {
 
 	public void setStore_id(int store_id) {
 		this.store_id = store_id;
+	}
+
+	public int getPurchase_id() {
+		return purchase_id;
+	}
+
+	public void setPurchase_id(int purchase_id) {
+		this.purchase_id = purchase_id;
 	}
 
 	public int getPrice() {
@@ -72,6 +83,14 @@ public class CartVO {
 
 	public void setUid(String uid) {
 		this.uid = uid;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 	public Date getReg_date() {

@@ -2,15 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.plantee.mapper.StoreMapper">
 	<select id="list" resultType="hashmap">
-		select s.*, u.uid, u.seller_yn, date_format(s.reg_date, '%Y-%m-%d %T') fmtdate, format(price,0) fmtprice
-		from store as s, users as u
-		where s.user_id=u.user_id
-		order by store_id desc;
+		select 
+			(select u.uid from users as u where u.user_id = s.user_id) as uid, 
+			(select u.seller_yn from users as u where u.user_id = s.user_id) as seller_yn,
+			s.*, date_format(s.reg_date, '%Y-%m-%d %T') fmtdate, format(s.price,0) fmtprice 
+		from store as s
+		where s.title like concat('%', #{query}, '%') or s.contents like concat('%', #{query}, '%')
+		order by store_id desc
+		limit #{start}, #{size};
 	</select>
 	<select id="total" resultType="int">
 		select count(*)
 		from store
-		where title like concat('%',#{query},'%') or contents like concat('%',#{query},'%')
+		where title like concat('%', #{query}, '%') or contents like concat('%', #{query}, '%')
 		order by store_id desc;
 	</select>
 	<select id="list2" resultType="hashmap">
@@ -21,9 +25,13 @@
 		limit #{start}, #{size};
 	</select>
 	<select id="read" resultType="hashmap">
-		select s.*, u.uid, date_format(s.reg_date, '%Y-%m-%d %T') fmtdate, format(s.price, 0) fmtprice
-		from store as s, users as u
-		where s.user_id=u.user_id and store_id = #{store_id};
+		SELECT s.*, u.uid, DATE_FORMAT(s.reg_date, '%Y-%m-%d %T') AS fmtdate, 
+              FORMAT(s.price, 0) AS fmtprice, 
+              p.type, p.care_level, p.indoor, p.leaf, p.flowers, p.fruits, p.poisonous_pet, p.cuisine 
+		FROM store AS s
+		JOIN users AS u ON s.user_id = u.user_id
+		LEFT JOIN plant AS p ON s.title = p.common_name
+		WHERE s.store_id = #{store_id};
 	</select>
 	<select id="info" resultType="hashmap">
 		select *, date_format(reg_date, '%Y-%m-%d %T') fmtdate, format(price, 0) fmtprice,
@@ -69,7 +77,7 @@
 		select c.comment_id, c.user_id, c.store_id, c.contents, c.image, c.stars, c.stars_avg, c.reg_date, c.mdfy_date, c.like_cnt, c.upper_id, c.category,
 			u.uid, u.nickname, u.image, date_format(c.reg_date, '%Y-%m-%d %T') fmtdate
 		from comments as c, users as u
-		where category=5 and c.user_id=u.user_id and store_id=100147
+		where category=5 and c.user_id=u.user_id and store_id= #{store_id}
 		order by comment_id desc;
 	</select>
 	<select id="reviewcnt" resultType="int">
@@ -95,7 +103,7 @@
 		select t2.uid, t2.nickname, t1.* from 
 		(WITH RECURSIVE CTS AS (
 		    SELECT comments.* , 0 as lvl , cast(comments.comment_id as char) as path
-		    FROM comments WHERE upper_id = 0 AND store_id = 100147
+		    FROM comments WHERE upper_id = 0 AND store_id = #{store_id}
 		    UNION ALL
 		    SELECT u.*, CTS.lvl+1, concat(CTS.path, ',', cast(u.comment_id as char))
 		    FROM comments u
