@@ -20,7 +20,7 @@ public class OrderServiceImpl implements OrderService {
 		if (check == 0) {
 			dao.insert(vo);
 		} else {
-			vo.setQnt(1);
+//			vo.setQnt(1);
 			dao.update(vo);
 		}
 	}

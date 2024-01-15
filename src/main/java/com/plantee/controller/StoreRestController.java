@@ -14,13 +14,16 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.plantee.domain.StoreVO;
-import com.plantee.domain.UserVO;
 import com.plantee.dao.StoreDAO;
 import com.plantee.domain.CommentsVO;
 import com.plantee.domain.QueryVO;
+import com.plantee.domain.StoreVO;
+import com.plantee.domain.UserVO;
 import com.plantee.service.FireBaseService;
 import com.plantee.service.StoreService;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/store")
@@ -37,6 +40,11 @@ public class StoreRestController {
 	@GetMapping("/list.json")
 	public HashMap<String, Object> list(QueryVO vo) {
 		return service.list(vo);
+	}
+	
+	@GetMapping("/getUserInfoAct")
+	public HashMap<String, Object> getUserInfoAct(QueryVO vo) {
+		return dao.getUserInfo(vo);
 	}
 
 	@GetMapping("/read/{store_id}")

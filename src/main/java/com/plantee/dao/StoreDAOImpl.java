@@ -21,6 +21,11 @@ public class StoreDAOImpl implements StoreDAO {
 	String namespace = "com.plantee.mapper.StoreMapper";
 
 	@Override
+	public HashMap<String, Object> getUserInfo(QueryVO vo) {
+		return session.selectOne(namespace + ".getUserInfo", vo);
+	}
+	
+	@Override
 	public List<HashMap<String, Object>> list(QueryVO vo) {
 		vo.setStart((vo.getPage() - 1) * vo.getSize());
 		return session.selectList(namespace + ".list", vo);

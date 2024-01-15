@@ -10,6 +10,10 @@ import com.plantee.domain.StoreVO;
 import com.plantee.domain.UserVO;
 
 public interface StoreDAO {
+	
+	//get user info
+	public HashMap<String, Object> getUserInfo(QueryVO vo);
+	
 	public List<HashMap<String, Object>> list(QueryVO vo);
 	public HashMap<String, Object> read(int store_id);
 	public int total(QueryVO vo);
@@ -33,5 +37,7 @@ public interface StoreDAO {
 	public int question_cnt(int store_id);
 	
 	public void delete_comment(int comment_id);
+	
+	
 	
 }
