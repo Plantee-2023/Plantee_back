@@ -39,6 +39,14 @@
 		from store
 		where store_id = #{store_id};
 	</select>
+	<select id="count" resultType="int">
+		select store_id,
+			(select count(*) from likes where likes.store_id=store.store_id) totallikecnt,
+			(select count(*) from likes where likes.store_id=store.store_id and (select user_id from users where uid = #{uid})) userlikecnt,
+			(select count(*) from comments where comments.store_id=store.store_id and category=5) totalreviewcnt
+		from store
+		order by store_id desc;
+	</select>
 	<delete id="delete">
 		delete from store
 		where store_id = #{store_id};
@@ -58,13 +66,14 @@
 		set image = #{image}
 		where store_id = #{store_id};
 	</update>
+	
 	<insert id="like">
 		insert into likes(user_id, store_id)
-		values(#{user_id}, #{store_id})
+		select (select user_id from users where uid = #{uid}), #{store_id};
 	</insert>
 	<delete id="delete_like">
 		delete from likes
-		where user_id=#{user_id} and store_id=#{store_id}
+		where (select user_id from users where uid = #{uid}) and store_id = #{store_id};
 	</delete>
 	<update id="update_like">
 		update store

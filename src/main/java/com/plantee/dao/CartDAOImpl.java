@@ -17,18 +17,28 @@ public class CartDAOImpl implements CartDAO {
 	String namespace = "com.plantee.mapper.CartMapper";
 
 	@Override
+	public void insert(CartVO vo) {
+		session.insert(namespace + ".insert", vo);
+	}
+	
+	@Override
+	public int check(CartVO vo) {
+		return session.selectOne(namespace + ".check", vo);
+	}
+	
+	@Override
 	public List<Map<String, Object>> list(UserVO vo) {
 		return session.selectList(namespace + ".list", vo);
 	}
 
 	@Override
-	public int total(int user_id) {
-		return session.selectOne(namespace + ".total", user_id);
+	public int total(String uid) {
+		return session.selectOne(namespace + ".total", uid);
 	}
 
 	@Override
-	public int sum(int user_id) {
-		return session.selectOne(namespace + ".sum", user_id);
+	public String sum(String uid) {
+		return session.selectOne(namespace + ".sum", uid);
 	}
 
 	@Override
@@ -39,16 +49,6 @@ public class CartDAOImpl implements CartDAO {
 	@Override
 	public void updateQnt(CartVO vo) {
 		session.update(namespace + ".update_qnt", vo);
-	}
-
-	@Override
-	public int check(CartVO vo) {
-		return session.selectOne(namespace + ".check", vo);
-	}
-
-	@Override
-	public void insert(CartVO vo) {
-		session.insert(namespace + ".insert", vo);
 	}
 
 	@Override

@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.plantee.domain.StoreVO;
+import com.plantee.domain.UserVO;
 import com.plantee.dao.StoreDAO;
 import com.plantee.domain.CommentsVO;
 import com.plantee.domain.QueryVO;
@@ -102,6 +103,13 @@ public class StoreRestController {
 	@GetMapping("/delete/like")
 	public void delete_like(int user_id, int store_id) {
 		service.delete_like(user_id, store_id);
+	}
+	
+	
+
+	@GetMapping("/count")
+	public void count(UserVO vo) {
+		dao.count(vo);
 	}
 
 	

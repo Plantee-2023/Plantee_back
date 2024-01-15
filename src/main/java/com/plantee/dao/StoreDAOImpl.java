@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.plantee.domain.CommentsVO;
 import com.plantee.domain.QueryVO;
 import com.plantee.domain.StoreVO;
+import com.plantee.domain.UserVO;
 
 @Repository
 public class StoreDAOImpl implements StoreDAO {
@@ -60,7 +61,7 @@ public class StoreDAOImpl implements StoreDAO {
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("user_id", user_id);
 		map.put("store_id", store_id);
-		session.insert(namespace + ".heart", map);
+		session.insert(namespace + ".like", map);
 	}
 
 	@Override
@@ -68,7 +69,7 @@ public class StoreDAOImpl implements StoreDAO {
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("store_id", store_id);
 		map.put("amount", amount);
-		session.update(namespace + ".update_heart", map);
+		session.update(namespace + ".update_like", map);
 	}
 
 	@Override
@@ -76,7 +77,13 @@ public class StoreDAOImpl implements StoreDAO {
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("user_id", user_id);
 		map.put("store_id", store_id);
-		session.delete(namespace + ".delete_heart", map);
+		session.delete(namespace + ".delete_like", map);
+	}
+	
+
+	@Override
+	public int count(UserVO vo) {
+		return session.selectOne(namespace + ".count", vo);
 	}
 
 	

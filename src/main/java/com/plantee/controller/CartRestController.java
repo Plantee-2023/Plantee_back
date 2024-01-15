@@ -1,6 +1,6 @@
 package com.plantee.controller;
 
-import java.util.*;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,12 +24,15 @@ public class CartRestController {
 	@Autowired
 	OrderService service;
 
-	@GetMapping("/list")
-	public HashMap<String, Object> list(UserVO vo) {
+	@GetMapping("/list.json/{uid}")
+	public HashMap<String, Object> list(@PathVariable("uid") String uid) {
+		UserVO vo = new UserVO();
+		vo.setUid(uid);
+		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("list", dao.list(vo));
-		map.put("total", dao.total(vo.getUser_id()));
-		map.put("sum", dao.sum(vo.getUser_id()));
+		map.put("total", dao.total(vo.getUid()));
+		map.put("sum", dao.sum(vo.getUid()));
 		return map;
 	}
 	
@@ -38,13 +41,14 @@ public class CartRestController {
 		service.insert(vo);
 	}
 	
-	@PostMapping("/delete/{cid}")
-	public void delete(@PathVariable int cid) {
-		dao.delete(cid);
+	@PostMapping("/delete/{cart_id}")
+	public void delete(@PathVariable("cart_id") int cart_id) {
+		dao.delete(cart_id);
 	}
 	
 	@PostMapping("/update/qnt")
 	public void updateQnt(@RequestBody CartVO vo) {
 		dao.updateQnt(vo);
 	}
+	
 }
