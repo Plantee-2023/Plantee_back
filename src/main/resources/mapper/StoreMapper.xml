@@ -97,20 +97,43 @@
 		where category=5 and c.user_id=u.user_id and store_id= #{store_id}
 		order by comment_id desc;
 	</select>
+	
 	<select id="reviewcnt" resultType="int">
 		select count(*) as review_cnt
 		from comments
 		where store_id = #{store_id} and category=5;
 	</select>
+	
+	<!-- 리뷰 1개 조회(리뷰수정화면) -->
+	<select id="reviewOne" resultType="hashmap">
+		select c.comment_id, c.user_id, c.store_id, c.contents, c.image, c.stars, c.stars_avg, c.reg_date, c.mdfy_date, c.like_cnt, c.upper_id, c.category,
+			u.uid, u.nickname, u.image, date_format(c.reg_date, '%Y-%m-%d %T') fmtdate
+		from comments as c, users as u
+		where category=5 and c.user_id=u.user_id 
+		and c.store_id = #{store_id}
+		and c.comment_id = #{comment_id};
+	</select>
+	
 	<select id="starsavg" resultType="int">
 		select coalesce(Avg(stars), 0) as stars_avg
 		from comments 
 		where store_id = #{store_id} and category=5;
 	</select>
+	
 	<insert id="reviewinsert">
-		insert into comments(user_id, store_id, contents, stars, category)
-		select (select user_id from users where uid = #{uid}), #{store_id}, #{contents}, #{stars}, #{category};
+		insert into comments(user_id, store_id, contents, stars, category, uid)
+		select (select user_id from users where uid = #{uid}), #{store_id}, #{contents}, #{stars}, #{category}, #{uid};
 	</insert>
+
+	<update id="reviewupdate">
+		UPDATE plantee_database.comments
+		SET	
+			contents=#{contents},
+			stars=#{stars},
+			mdfy_date=CURRENT_TIMESTAMP
+		WHERE comment_id=#{comment_id};
+	</update>
+	
 	<select id="questionlist" resultType="com.plantee.domain.CommentsVO">
 		select c.*, u.nickname, u.image, date_format(c.reg_date, '%Y-%m-%d %T') fmtdate
 		from comments as c, users as u

@@ -131,9 +131,25 @@ public class StoreRestController {
 		return resultMap;
 	}
 	
+	// Comments
+	@PostMapping("/reviewOne")
+	public Map<String, Object> reviewOne(@RequestBody CommentsVO vo) {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = dao.review_one(vo);
+//		resultMap.put("reviewList", );
+//		resultMap.put("reviewCount", dao.review_cnt(store_id));
+//		resultMap.put("starsCount", dao.stars_avg(store_id));
+		return resultMap;
+	}
+	
 	@PostMapping("/comment/insert")
 	public void review_insert(@RequestBody CommentsVO vo) {
 		dao.review_insert(vo);
+	}
+	
+	@PostMapping("/comment/update")
+	public void review_update(@RequestBody CommentsVO vo) {
+		dao.review_update(vo);
 	}
 
 	@GetMapping("/question/{store_id}")

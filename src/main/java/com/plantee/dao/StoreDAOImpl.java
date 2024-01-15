@@ -103,6 +103,13 @@ public class StoreDAOImpl implements StoreDAO {
 	public int review_cnt(int store_id) {
 		return session.selectOne(namespace + ".reviewcnt", store_id);
 	}
+	
+	// Comments
+	@Override
+	public Map<String, Object> review_one(CommentsVO vo) {
+		Map<String, Object> resultMap = session.selectOne(namespace + ".reviewOne", vo);
+		return resultMap;
+	}
 
 	@Override
 	public int stars_avg(int store_id) {
@@ -112,6 +119,11 @@ public class StoreDAOImpl implements StoreDAO {
 	@Override
 	public void review_insert(CommentsVO vo) {
 		session.insert(namespace + ".reviewinsert", vo);
+	}
+	
+	@Override
+	public void review_update(CommentsVO vo) {
+		session.update(namespace + ".reviewupdate", vo);
 	}
 
 	@Override
