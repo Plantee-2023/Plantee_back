@@ -121,8 +121,8 @@
 	</select>
 	
 	<insert id="reviewinsert">
-		insert into comments(user_id, store_id, contents, stars, category, uid)
-		select (select user_id from users where uid = #{uid}), #{store_id}, #{contents}, #{stars}, #{category}, #{uid};
+		insert into comments(user_id, store_id, contents, stars, category, uid, upper_id)
+		select (select user_id from users where uid = #{uid}), #{store_id}, #{contents}, #{stars}, #{category}, #{uid}, #{upper_id};
 	</insert>
 
 	<update id="reviewupdate">
