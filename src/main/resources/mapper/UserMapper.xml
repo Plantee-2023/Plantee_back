@@ -10,9 +10,9 @@
 		select * from users where uid = #{uid};
 	</select>
 	<insert id="insert">
-		insert into users(uid, upass, uname, nickname, phone, address1, address2, email, seller_yn)
-		values(#{uid}, #{upass}, #{uname}, #{nickname}, #{phone}, #{address1}, #{address2}, #{email}, #{seller_yn});
-	</insert>
+      insert into users(uid, upass, uname, nickname, phone, address1, address2, email, seller_yn)
+      values(#{uid}, #{upass}, #{uname}, #{nickname}, #{phone}, #{address1}, #{address2}, #{email}, #{seller_yn});
+   	</insert>
 	<update id="update">
 		update users
 		set nickname = #{nickname}, phone = #{phone}, address1 = #{address1}, address2 = #{address2}
@@ -28,4 +28,7 @@
 		set image = #{image}
 		where uid = #{uid};
 	</update>
+	 <delete id="delete">
+   		delete from users where user_id=#{user_id};
+   </delete>
 </mapper>

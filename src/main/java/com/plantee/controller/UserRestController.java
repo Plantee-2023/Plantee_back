@@ -59,6 +59,11 @@ public class UserRestController {
 		dao.password(vo);
 	}
 
+	@PostMapping("/delete/{user_id}")
+	   public void delete(@PathVariable("user_id") int user_id) {
+		   dao.delete(user_id);
+	}
+	
 	@PostMapping("/upload")
 	public void upload(String uid, MultipartHttpServletRequest multi) throws Exception {
 		MultipartFile file = multi.getFile("file");
