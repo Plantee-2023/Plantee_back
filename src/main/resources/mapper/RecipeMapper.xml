@@ -34,4 +34,32 @@
 		where recipe_id=#{recipe_id}
 	</delete>
 	
+	<!-- Comments -->
+	<select id="review_list" resultType="hashmap">
+		select *
+		from view_recipecomm
+		order by recipe_id desc;
+	</select>
+	
+	<select id="review_read" resultType="com.plantee.domain.CommentsVO">
+		select *
+		from view_recipecomm
+		where recipe_id = #{recipe_id};
+	</select>
+	
+	<insert id="review_insert">
+		insert into comments(comment_id, recipe_id, contents, category, uid)
+		values (#{comment_id}, #{recipe_id}, #{contents}, 2, #{uid});
+	</insert>
+	
+	<delete id="review_delete">
+		delete from comments
+		where comment_id=#{comment_id}
+	</delete>
+	
+	<select id="review_total" resultType="int">
+		select count(*) as review_cnt
+		from comments
+		where recipe_id = #{recipe_id} and category=2;
+	</select>
 </mapper>

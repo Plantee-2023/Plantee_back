@@ -9,7 +9,7 @@
 	<select id="login" resultType="com.plantee.domain.UserVO">
 		select * from users where uid = #{uid};
 	</select>
-	<insert id="insert">
+	<insert id="insert" useGeneratedKeys="true" keyProperty="user_id">
 		insert into users(uid, upass, uname, nickname, phone, address1, address2, email, seller_yn)
 		values(#{uid}, #{upass}, #{uname}, #{nickname}, #{phone}, #{address1}, #{address2}, #{email}, #{seller_yn});
 	</insert>
