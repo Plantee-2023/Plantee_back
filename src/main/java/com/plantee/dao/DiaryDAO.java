@@ -11,5 +11,7 @@ public interface DiaryDAO {
    public void insert(DiaryVO vo);
    public void update(DiaryVO vo);
    public void delete(int diary_id);
+   public List<HashMap<String, Object>> storelist(DiaryVO vo);
+
 }
 

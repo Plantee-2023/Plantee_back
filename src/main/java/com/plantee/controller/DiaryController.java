@@ -51,6 +51,9 @@ public class DiaryController {
    public void delete(@PathVariable("diary_id") int diary_id) {
 	   dao.delete(diary_id);
    }
-   
-	
+   	
+   @GetMapping("/storelist.json/{diary_id}")
+   public List<HashMap<String, Object>> storelist(DiaryVO vo) {
+      return dao.storelist(vo);
+   }
 }
