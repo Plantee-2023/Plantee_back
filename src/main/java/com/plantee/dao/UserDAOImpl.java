@@ -44,4 +44,9 @@ public class UserDAOImpl implements UserDAO {
 		session.insert(namespace + ".insert", vo);
 	}
 
+	@Override
+	public void delete(int user_id) {
+		session.delete(namespace + ".delete", user_id);
+	}
+
 }
