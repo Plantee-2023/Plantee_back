@@ -11,6 +11,6 @@ public interface UserDAO {
 	public void update(UserVO vo);
 	public void password(UserVO vo);
 	public void image(UserVO vo);
-	public void delete(int user_id);
+	public void delete(String uid);
 
 }

@@ -59,9 +59,9 @@ public class UserRestController {
 		dao.password(vo);
 	}
 
-	@PostMapping("/delete/{user_id}")
-	   public void delete(@PathVariable("user_id") int user_id) {
-		   dao.delete(user_id);
+	@PostMapping("/delete/{uid}")
+	   public void delete(@PathVariable("uid") String uid) {
+		   dao.delete(uid);
 	}
 	
 	@PostMapping("/upload")
