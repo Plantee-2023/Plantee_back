@@ -2,11 +2,13 @@ package com.plantee.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.plantee.domain.CommentsVO;
 import com.plantee.domain.QueryVO;
 import com.plantee.domain.RecipeVO;
 
@@ -47,4 +49,41 @@ public class RecipeDAOImpl implements RecipeDAO {
 	public void delete(int recipe_id) {
 		session.delete(namespace + ".delete", recipe_id);
 	}
+
+	/* Comments */
+	
+	@Override
+	public CommentsVO review_read(int recipe_id) {
+		return session.selectOne(namespace + ".review_read", recipe_id);
+	}
+
+	@Override
+	public List<HashMap<String, Object>> review_list(int recipe_id) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("recipe_id", recipe_id);
+		return session.selectList(namespace + ".review_list", map);
+	}
+
+	@Override
+	public void review_insert(CommentsVO vo) {
+		session.insert(namespace + ".review_insert", vo);
+	}
+
+	@Override
+	public void review_delete(int comment_id) {
+		session.delete(namespace + ".review_delete", comment_id);
+	}
+
+	@Override
+	public int review_total(int recipe_id) {
+		return session.selectOne(namespace + ".review_total", recipe_id);
+	}
+
+//	@Override
+//	public void review_updatelcnt(int comment_id, int amount) {
+//		HashMap<String, Object> map = new HashMap<>();
+//		map.put("comment_id", comment_id);
+//		map.put("amount", amount);
+//		session.update(namespace + ".review_updatelcnt", map)
+//	}
 }

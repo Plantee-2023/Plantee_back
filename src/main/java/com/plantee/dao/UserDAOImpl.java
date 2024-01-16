@@ -42,6 +42,7 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public void insert(UserVO vo) {
 		session.insert(namespace + ".insert", vo);
+		System.out.println(vo.getUser_id());
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package com.plantee.controller;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.plantee.dao.CommentsDAO;
 import com.plantee.dao.RecipeDAO;
+import com.plantee.domain.CommentsVO;
 import com.plantee.domain.PlantVO;
 import com.plantee.domain.QueryVO;
 import com.plantee.domain.RecipeVO;
@@ -22,6 +25,9 @@ public class RecipeRestController {
 	
 	@Autowired
 	RecipeDAO dao;
+	
+	@Autowired
+	CommentsDAO cdao;
 	
 	@Autowired
 	RecipeService service;
@@ -50,5 +56,24 @@ public class RecipeRestController {
 	@GetMapping("/delete/{recipe_id}")
 	public void delete(@PathVariable("recipe_id") int recipe_id) {
 		dao.delete(recipe_id);
+	}
+	
+	/* Comments */
+	@GetMapping("/review/list.json")
+	public HashMap<String, Object> review_list(CommentsVO vo){
+	    HashMap<String, Object> map = new HashMap<String, Object>();
+	    map.put("reviewtotal", dao.review_total(vo.getRecipe_id()));
+	    map.put("reviewlist", dao.review_list(vo.getRecipe_id()));
+	    return map;
+	}
+	
+	@PostMapping("/review/insert")
+	public void review_insert(@RequestBody CommentsVO vo) {
+		dao.review_insert(vo);
+	}
+	
+	@PostMapping("/review/delete/{comment_id}")
+	public void review_delete(@PathVariable("comment_id") int comment_id) {
+		dao.review_delete(comment_id);
 	}
 }

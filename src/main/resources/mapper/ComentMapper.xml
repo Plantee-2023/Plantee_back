@@ -39,10 +39,10 @@
 		where comment_id=#{comment_id}
 	</update>
           
-	    	<delete id="delete">
+	<delete id="delete">
 	delete from comments
 	where comment_id=#{comment_id}
-</delete>
+	</delete>
  
 	
 </mapper>
