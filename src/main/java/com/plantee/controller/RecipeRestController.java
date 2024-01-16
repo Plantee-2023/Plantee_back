@@ -70,7 +70,6 @@ public class RecipeRestController {
 	@PostMapping("/review/insert")
 	public void review_insert(@RequestBody CommentsVO vo) {
 		dao.review_insert(vo);
-		System.out.println("User ID: ----------------------------" + vo.getUser_id());
 	}
 	
 	@PostMapping("/review/delete/{comment_id}")

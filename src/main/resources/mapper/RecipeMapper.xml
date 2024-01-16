@@ -48,8 +48,8 @@
 	</select>
 	
 	<insert id="review_insert">
-		insert into comments(comment_id, recipe_id, contents, category, uid)
-		values (#{comment_id}, #{recipe_id}, #{contents}, 2, #{uid});
+		insert into comments(user_id, recipe_id, contents, category, uid)
+		select (select user_id from users where uid = #{uid}), #{recipe_id}, #{contents}, #{category}, #{uid};
 	</insert>
 	
 	<delete id="review_delete">
