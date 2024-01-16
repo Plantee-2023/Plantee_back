@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.plantee.mapper.PurchaseMapper">
+	<select id="list_orders" resultType="hashmap">
+		select *
+		from view_orders
+		where o.store_id = s.store_id;
+	</select>
+	<select id="list_purchase" resultType="hashmap">
+		select *, format(sum, 0) as fmtsum, date_format(reg_date, '%Y년%m월%d일 %T') as fmtdate
+		from purchase
+		where user_id = #{user_id}
+		order by reg_date desc;
+	</select>
+	<select id="total_purchase" resultType="int">
+		select count(*)
+		from purchase
+		where user_id = #{user_id};
+	</select>
+	<insert id="insert_order">
+		insert into orders(store_id, purchase_id, price, qnt)
+		values(#{store_id}, #{purchase_id}, #{price}, #{qnt});
+	</insert>
+	<insert id="insert_purchase">
+		insert into purchase(purchase_id, uid, uname, phone, address1, address2, sum)
+		values(#{purchase_id}, #{uid}, #{uname}, #{phone}, #{address1}, #{address2}, #{sum});
+	</insert>
+</mapper>
