@@ -46,6 +46,12 @@ public class DiaryDAOImpl implements DiaryDAO{
 	      return session.selectList(namespace + ".storelist", vo);
 	}
 
+	@Override
+	public void water_update(int diary_id) {
+		   session.update(namespace +".water_update", diary_id);
+		
+	}
+
 
 }
 

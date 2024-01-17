@@ -56,4 +56,9 @@ public class DiaryController {
    public List<HashMap<String, Object>> storelist(DiaryVO vo) {
       return dao.storelist(vo);
    }
+   
+   @PostMapping("/water_update")
+	public void water_update(@RequestBody int diary_id) {
+		dao.water_update(diary_id);
+	}
 }

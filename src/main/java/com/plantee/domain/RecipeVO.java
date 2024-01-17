@@ -16,7 +16,23 @@ public class RecipeVO {
 	private int category;
 	private Date reg_date;
 	private Date mdfy_date;
+	private String nickname;
+	private String user_id;
+	private String comments_id;
 	
+	
+	public String getComments_id() {
+		return comments_id;
+	}
+	public void setComments_id(String comments_id) {
+		this.comments_id = comments_id;
+	}
+	public String getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
+	}
 	public int getRecipe_id() {
 		return recipe_id;
 	}
@@ -89,12 +105,18 @@ public class RecipeVO {
 	public void setMdfy_date(Date mdfy_date) {
 		this.mdfy_date = mdfy_date;
 	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
 	
 	@Override
 	public String toString() {
 		return "RecipeVO [recipe_id=" + recipe_id + ", uid=" + uid + ", title=" + title + ", description=" + description
 				+ ", image=" + image + ", level=" + level + ", view_cnt=" + view_cnt + ", like_cnt=" + like_cnt
 				+ ", coment_cnt=" + coment_cnt + ", category=" + category + ", reg_date=" + reg_date + ", mdfy_date="
-				+ mdfy_date + "]";
+				+ mdfy_date + ", nickname=" + nickname + "]";
 	}
 }

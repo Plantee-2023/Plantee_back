@@ -3,6 +3,7 @@ package com.plantee.domain;
 import java.util.Date;
 
 public class UserVO {
+	private int user_id;
 	private String uid;
 	private String upass;
 	private String uname;
@@ -17,13 +18,32 @@ public class UserVO {
 	private Date mdfy_date;
 	private int level;
 	private int exp;
+	private int user_id;
+	
+	
+
+	public int getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
+	}
 
 	@Override
 	public String toString() {
-		return "UserVO [ uid=" + uid + ", upass=" + upass + ", uname=" + uname + ", nickname="
+		return "UserVO [user_id=" + user_id + ", uid=" + uid + ", upass=" + upass + ", uname=" + uname + ", nickname="
 				+ nickname + ", phone=" + phone + ", address1=" + address1 + ", address2=" + address2 + ", image="
 				+ image + ", email=" + email + ", seller_yn=" + seller_yn + ", reg_date=" + reg_date + ", mdfy_date="
 				+ mdfy_date + ", level=" + level + ", exp=" + exp + "]";
+	}
+
+	public int getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
 	}
 
 	public String getUid() {
