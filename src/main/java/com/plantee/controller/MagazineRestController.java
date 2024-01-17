@@ -41,9 +41,9 @@ public class MagazineRestController {
 	@Autowired
 	MagazineService service;
 	
-	@GetMapping("/read/{post_id}") 
-	public HashMap<String, Object> read(@PathVariable("post_id") int post_id) {
-		return service.read(post_id);
+	@GetMapping("/read/{magazine_num}") 
+	public HashMap<String, Object> read(@PathVariable("magazine_num") int magazine_num) {
+		return service.read(magazine_num);
 	}
 	
 	@GetMapping("/list.json")
@@ -80,20 +80,5 @@ public class MagazineRestController {
 		}catch(Exception e) {
 			System.out.println("이미지변경:" + e.toString());
 		}
-	}
-	
-	@GetMapping("/display")
-	public ResponseEntity<Resource> display(@RequestParam (value="file") String file) {
-		Resource resource = new FileSystemResource("c:" + file);
-		if (!resource.exists())
-			return new ResponseEntity<Resource>(HttpStatus.NOT_FOUND);
-		HttpHeaders header = new HttpHeaders();
-		try {
-			Path filePath = Paths.get("c:" + file);
-			header.add("Content-type", Files.probeContentType(filePath));
-		} catch (Exception e) {
-			System.out.println("오류:" + e.toString());
-		}
-		return new ResponseEntity<Resource>(resource, header, HttpStatus.OK);
 	}
 }

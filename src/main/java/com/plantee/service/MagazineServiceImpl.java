@@ -26,9 +26,9 @@ public class MagazineServiceImpl implements MagazineService{
 	
 	@Transactional
 	@Override
-	public HashMap<String, Object> read(int post_id) {
-		dao.readCount(post_id);
-		return dao.read(post_id);
+	public HashMap<String, Object> read(int magazine_num) {
+		dao.readCount(magazine_num);
+		return dao.read(magazine_num);
 	}
 
 }

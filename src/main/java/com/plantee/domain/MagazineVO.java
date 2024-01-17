@@ -20,7 +20,14 @@ public class MagazineVO {
 	private int category;
 	private String uid;
 	private String nickname;
+	private int magazine_num;
 	
+	public int getMagazine_num() {
+		return magazine_num;
+	}
+	public void setMagazine_num(int magazine_num) {
+		this.magazine_num = magazine_num;
+	}
 	public int getPost_id() {
 		return post_id;
 	}
@@ -129,8 +136,10 @@ public class MagazineVO {
 				+ ", contents=" + contents + ", image=" + image + ", red_date=" + red_date + ", mdfy_date=" + mdfy_date
 				+ ", link=" + link + ", price=" + price + ", view_cnt=" + view_cnt + ", like_cnt=" + like_cnt
 				+ ", coment_cnt=" + coment_cnt + ", filter=" + filter + ", category=" + category + ", uid=" + uid
-				+ ", nickname=" + nickname + "]";
+				+ ", nickname=" + nickname + ", magazine_num=" + magazine_num + "]";
 	}
+	
+	
 	
 	
 	

@@ -24,8 +24,8 @@ public class MagazineDAOImpl implements MagazineDAO{
 	}
 
 	@Override
-	public HashMap<String, Object> read(int post_id) {
-		return session.selectOne(namespace +".read", post_id);
+	public HashMap<String, Object> read(int magazine_num) {
+		return session.selectOne(namespace +".read", magazine_num);
 	}
 
 	@Override
@@ -46,8 +46,8 @@ public class MagazineDAOImpl implements MagazineDAO{
 	}
 
 	@Override
-	public void delete(int post_id) {
-		session.delete(namespace + ".delete", post_id);
+	public void delete(int magazine_num) {
+		session.delete(namespace + ".delete", magazine_num);
 		
 	}
 
