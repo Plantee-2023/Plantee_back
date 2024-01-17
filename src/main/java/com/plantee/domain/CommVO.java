@@ -1,6 +1,5 @@
 package com.plantee.domain;
 
-import java.util.Date;
 
 public class CommVO {
 	private int post_origin;

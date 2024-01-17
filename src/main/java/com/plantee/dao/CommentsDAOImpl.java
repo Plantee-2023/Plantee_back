@@ -17,7 +17,7 @@ public class CommentsDAOImpl implements CommentsDAO  {
 	
 	@Autowired
 	SqlSession session;
-	String namespace="com.plantee.mapper.ComentMapper";
+	String namespace="com.plantee.mapper.CommentsMapper";
 	
 	
  	@Override
@@ -35,6 +35,28 @@ public class CommentsDAOImpl implements CommentsDAO  {
 	public int c_total(int post_id) {
 		return session.selectOne(namespace + ".c_total",post_id);
 	}
+
+	@Override
+	public int read_id(String uid) {
+		// TODO Auto-generated method stub
+		return session.selectOne(namespace + ".read_id",uid);
+	}
 	
+	@Override
+	public void insert_comments(CommentsVO vo) {
+		
+	 
+
+		session.insert(namespace + ".insert_comments",vo);
+		
+	}
+	
+	@Override
+	public void delete_comments(int comment_id) {
+	 
+
+		session.delete(namespace + ".delete",comment_id);
+		
+	}
 
 }
