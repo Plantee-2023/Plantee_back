@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.plantee.mapper.RecipeMapper">
+	<select id="read" resultType="hashmap">
+		select *
+		from view_recipe
+		where recipe_id = #{recipe_id};
+	</select>
+	
+	<select id="list" resultType="hashmap">
+		select *
+		from view_recipe
+		order by recipe_id desc;
+	</select>
+	
+	<select id="total" resultType="int">
+		select count(*)
+		from recipe;
+	</select>
+	
+	<update id="update">
+		update recipe
+		set title = #{title}, description = #{description}, image = #{image}, level = #{level}, mdfy_date=now()
+		where recipe_id = #{recipe_id}
+	</update>
+	
+	<insert id="insert">
+		insert into recipe(title, description, image, level, uid)
+		values(#{title}, #{description}, #{image}, #{level}, #{uid})
+	</insert>
+	
+	<delete id="delete">
+		delete from recipe
+		where recipe_id=#{recipe_id}
+	</delete>
+	
+	<!-- Comments -->
+	<select id="review_list" resultType="hashmap">
+		select *
+		from view_recipecomm
+		order by recipe_id desc;
+	</select>
+	
+	<select id="review_read" resultType="com.plantee.domain.CommentsVO">
+		select *
+		from view_recipecomm
+		where recipe_id = #{recipe_id};
+	</select>
+	
+	<insert id="review_insert">
+		insert into comments(user_id, recipe_id, contents, category, uid)
+		select (select user_id from users where uid = #{uid}), #{recipe_id}, #{contents}, #{category}, #{uid};
+	</insert>
+	
+	<delete id="review_delete">
+		delete from comments
+		where comment_id=#{comment_id}
+	</delete>
+	
+	<select id="review_total" resultType="int">
+		select count(*) as review_cnt
+		from comments
+		where recipe_id = #{recipe_id} and category=2;
+	</select>
+</mapper>

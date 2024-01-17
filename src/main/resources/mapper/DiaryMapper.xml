@@ -9,7 +9,7 @@
    </select>
    <insert id="insert">
 		insert into diary(user_id, plant_name, image, contents, plant_id)
-		value(#{user_id},#{plant_name}, #{image},#{contents}, #{plant_id});
+		value((select user_id from users where uid = #{uid}), #{plant_name}, #{image},#{contents}, #{plant_id});
    </insert>
    <update id="update">
 		update diary
@@ -19,4 +19,14 @@
    <delete id="delete">
    		delete from diary where diary_id=#{diary_id};
    </delete>
+   <select id="storelist" resultType="hashmap">
+	   	select s.title, s.price, s.image
+		from store as s, view_diary as d
+		where d.care_level=s.level and diary_id=#{diary_id};
+   </select>
+   <update id="water_update">
+	    update diary 
+		set last_watering=now()
+		where diary_id=#{diary_id};
+   </update>
 </mapper>

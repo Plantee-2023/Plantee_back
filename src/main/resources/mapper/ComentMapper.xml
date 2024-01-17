@@ -52,4 +52,5 @@ SELECT COALESCE(MAX(post_reply), 0) + 1, (select user_id from users
 	</delete>
 
 
+
 </mapper>

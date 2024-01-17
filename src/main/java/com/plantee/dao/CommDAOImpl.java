@@ -25,9 +25,8 @@ public class CommDAOImpl implements CommDAO {
 	@Override
 	public void insert_reply(CommVO vo) {
 		session.insert(namespace + ".insert_reply", vo);
-
 	}
-
+	
 	@Override
 
 	public List<HashMap<String, Object>> search_list(QueryVO vo) {

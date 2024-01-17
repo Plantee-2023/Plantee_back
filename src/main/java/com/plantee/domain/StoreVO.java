@@ -3,6 +3,10 @@ package com.plantee.domain;
 import java.util.Date;
 
 public class StoreVO {
+	private int store_id;
+	private int user_id;
+	private String uid;
+	private String nickname;
 	private String title;
 	private String contents;
 	private String image;
@@ -18,10 +22,42 @@ public class StoreVO {
 
 	@Override
 	public String toString() {
-		return "StoreVO [title=" + title + ", contents=" + contents + ", image=" + image + ", tag=" + tag + ", price="
+		return "StoreVO [store_id=" + store_id + ", user_id=" + user_id + ", uid=" + uid + ", nickname=" + nickname
+				+ ", title=" + title + ", contents=" + contents + ", image=" + image + ", tag=" + tag + ", price="
 				+ price + ", stock=" + stock + ", level=" + level + ", review_cnt=" + review_cnt + ", like_cnt="
-				+ like_cnt + ", category=" + category + ", reg_date=" + reg_date
-				+ ", mdfy_date=" + mdfy_date + "]";
+				+ like_cnt + ", category=" + category + ", reg_date=" + reg_date + ", mdfy_date=" + mdfy_date + "]";
+	}
+
+	public int getStore_id() {
+		return store_id;
+	}
+
+	public void setStore_id(int store_id) {
+		this.store_id = store_id;
+	}
+
+	public int getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
+	}
+
+	public String getUid() {
+		return uid;
+	}
+
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 	public String getTitle() {
@@ -80,12 +116,12 @@ public class StoreVO {
 		this.level = level;
 	}
 
-	public int getView_cnt() {
+	public int getReview_cnt() {
 		return review_cnt;
 	}
 
-	public void setView_cnt(int view_cnt) {
-		this.review_cnt = view_cnt;
+	public void setReview_cnt(int review_cnt) {
+		this.review_cnt = review_cnt;
 	}
 
 	public int getLike_cnt() {
@@ -95,7 +131,7 @@ public class StoreVO {
 	public void setLike_cnt(int like_cnt) {
 		this.like_cnt = like_cnt;
 	}
-	
+
 	public int getCategory() {
 		return category;
 	}

@@ -2,6 +2,7 @@ package com.plantee.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,10 +35,7 @@ public class CommentsDAOImpl implements CommentsDAO  {
 	public int c_total(int post_id) {
 		return session.selectOne(namespace + ".c_total",post_id);
 	}
-	
-	
-	
-	
+
 	@Override
 	public int read_id(String uid) {
 		// TODO Auto-generated method stub
@@ -60,7 +58,5 @@ public class CommentsDAOImpl implements CommentsDAO  {
 		session.delete(namespace + ".delete",comment_id);
 		
 	}
-	
-	
 
 }

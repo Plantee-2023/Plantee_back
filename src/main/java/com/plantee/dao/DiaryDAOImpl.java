@@ -27,18 +27,29 @@ public class DiaryDAOImpl implements DiaryDAO{
 
    @Override
    public void insert(DiaryVO vo) {
-	   session.insert(namespace +".read", vo);
+	   session.insert(namespace +".insert", vo);
 	   
    }
    
    @Override
    public void update(DiaryVO vo) {
-	   session.update(namespace +".read", vo);
+	   session.update(namespace +".update", vo);
 	   
    }
 	@Override
 	public void delete(int diary_id) {
 		session.delete(namespace + ".delete", diary_id);
+	}
+
+	@Override
+	public List<HashMap<String, Object>> storelist(DiaryVO vo) {
+	      return session.selectList(namespace + ".storelist", vo);
+	}
+
+	@Override
+	public void water_update(int diary_id) {
+		   session.update(namespace +".water_update", diary_id);
+		
 	}
 
 
