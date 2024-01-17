@@ -2,28 +2,19 @@ package com.plantee.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.net.URLDecoder;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+ 
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -31,19 +22,14 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.google.api.Authentication;
-import com.google.cloud.storage.BlobId;
-import com.google.cloud.storage.BlobInfo;
-import com.google.cloud.storage.Bucket;
-import com.google.cloud.storage.Storage;
-import com.google.cloud.storage.StorageOptions;
-import com.google.firebase.auth.FirebaseAuth;
+
 import com.google.firebase.auth.FirebaseAuthException;
 import com.plantee.dao.CommDAO;
-import com.plantee.domain.CommentsVO;
+
 import com.plantee.domain.CommVO;
 import com.plantee.domain.QueryVO;
-import com.plantee.domain.UserVO;
+ 
+import com.plantee.service.CommService;
 import com.plantee.service.FireBaseService;
 
 @RestController
@@ -59,31 +45,52 @@ public class CommController {
 		@Autowired
 		FireBaseService service;
 		
+		@Autowired
+		CommService com_service;
+		
 		
 
-	 
+		//	
+		 
 		
-		@GetMapping("/list.json")
-		public HashMap<String,Object> list(QueryVO vo){
+		@GetMapping("/search_list.json")
+		public HashMap<String,Object>search_list( QueryVO vo){
+ 
+			return com_service.search_list(vo);
+		}
+		
+		
+		
+		
+		
+		
+		
+		@GetMapping("/filter_list.json")
+		public HashMap<String, Object> filter_list(QueryVO vo, @RequestParam(value = "category") int category,@RequestParam(required=false,defaultValue = "10", value="filter") Integer filter) {
+		    HashMap<String, Object> map = new HashMap<>();
+		     
+		    vo.setStart((vo.getPage() - 1) * vo.getSize());
+		    map.put("list", dao.filter_list(vo, category, filter));
+		    map.put("total", dao.total(vo, category, filter));
+
+		    return map;
+		}
+		
+		
+		
+		@GetMapping("/reply_list.json")
+		public HashMap<String,Object> list_filter(QueryVO vo, @RequestParam(value="category") int category, @RequestParam(required=false, defaultValue="", value="filter") Integer filter){
 			HashMap<String,Object> map=new HashMap<String,Object>();
+			
 			vo.setStart((vo.getPage()-1) * vo.getSize());
-			map.put("list", dao.list(vo));
-			map.put("total", dao.total());
+			map.put("list", dao.reply_list (vo,category,filter));
+			map.put("total", dao.total(vo,category,filter));
 			 
 			return map;
 		}
+		
 		
  
-		
-		@GetMapping("/list2.json")
-		public HashMap<String,Object> list2(QueryVO vo){
-			HashMap<String,Object> map=new HashMap<String,Object>();
-			map.put("list", dao.list2(vo));
-			map.put("total", dao.total());
-			 
-			return map;
-		}
-
 
 	 
 		 
@@ -118,6 +125,13 @@ public class CommController {
 		}
 		
 		
+
+		@GetMapping("/info/{post_id}")
+		public HashMap<String, Object> info(@PathVariable("post_id") int post_id, @RequestParam(required=false, value="uid") String uid){
+			return com_service.read(post_id, uid);
+		}
+		
+		
 		
 		@PostMapping("/insert_reply")
 		public void insert_reply(@RequestBody CommVO vo) {
@@ -132,7 +146,7 @@ public class CommController {
 	
 		
 		
-		@PostMapping("/ckupload")
+		@PostMapping("/ckupload") 
 		public HashMap<String, Object> ckupload(MultipartHttpServletRequest multi ) {
 		    HashMap<String, Object> map = new HashMap<String, Object>();
 
@@ -188,6 +202,23 @@ public class CommController {
 		public List<String> getCandidates() {
 			return Arrays.asList("선택1", "선택2", "선택3");
 	    }
+		
+		
+
+		
+		@GetMapping("/insert/favorites")
+		public void insert(@RequestParam(required=false, value="post_id") int post_id, @RequestParam(required=false, value="uid")String uid) {
+			com_service.insertFavorites(post_id, uid);
+		}
+		
+		@GetMapping("/delete/favorites")
+		public void delete(@RequestParam(required=false, value="post_id") int post_id, @RequestParam(required=false, value="uid") String uid) {
+			com_service.deleteFavorites(post_id, uid);
+		}
+		
+		
+		
+		
 		
 
 

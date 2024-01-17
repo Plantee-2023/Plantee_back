@@ -1,48 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.plantee.mapper.ComentMapper">
+<mapper namespace="com.plantee.mapper.CommentsMapper">
 
-<select id="c_list" resultType="hashmap">
+	<select id="c_list" resultType="hashmap">
 		select c.*,u.uid,u.nickname
 		from comments c, users u
-		where c.post_id=#{post_id} and c.user_id=u.user_id
-		  order by c.comment_id desc
-    LIMIT #{start}, #{size};
-		
+		where c.post_id=#{post_id} and c.uid=u.uid
+		order by c.comment_id desc
+		LIMIT #{start}, #{size};
+
 	</select>
-	
-	
-		 <select id="c_total" resultType="int">
-    	select count(*)
-    	from comments
-    	where post_id=#{post_id};
-    	
-    </select>
-    
-      <insert id="insert">
-    	insert into comments(user_id, contents,post_id)
-    	values( #{user_id},  #{contents},#{post_id})
-    </insert>
-    
-    	<select id="read_id" resultType="int">
-		
-		    select user_id from users
-		    where uid=#{uid};
-    
-    
+
+
+	<select id="c_total" resultType="int">
+		select count(*)
+		from comments
+		where post_id=#{post_id};
+
 	</select>
-	
-	
+
+	<insert id="insert_comments">
+		insert into comments(post_id,uid, contents)
+		values(#{post_id}, #{uid}, #{contents})
+	</insert>
+
+
+<insert id="insert_reply">
+	insert into comments
+(post_reply,user_id,category, post_id,contents) 
+SELECT COALESCE(MAX(post_reply), 0) + 1, (select user_id from users
+		where uid=#{uid}), #{category}, #{post_id}, #{contents} FROM comments;
+
+</insert>
+	<select id="read_id" resultType="int">
+
+		select u.user_id from users u
+		where u.uid=#{uid};
+
+	</select>
+
+
 	<update id="update">
 		update comments
 		set contents=#{contents}, reg_date=now()
 		where comment_id=#{comment_id}
 	</update>
-          
-	    	<delete id="delete">
-	delete from comments
-	where comment_id=#{comment_id}
-</delete>
- 
-	
+
+	<delete id="delete">
+		delete from comments
+		where comment_id=#{comment_id}
+	</delete>
+
+
 </mapper>

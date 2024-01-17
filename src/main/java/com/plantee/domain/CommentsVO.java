@@ -17,6 +17,15 @@ public class CommentsVO extends UserVO {
 	private Date mdfy_date;
 	private int upper_id;
 	private int lvl;
+	private String uid;
+
+	public String getUid() {
+		return uid;
+	}
+
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
 
 	@Override
 	public String toString() {
