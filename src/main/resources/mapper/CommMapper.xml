@@ -1,95 +1,214 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.plantee.mapper.CommMapper">
+
+
+	<update id="viewcnt">
+		update posts
+		set view_cnt=view_cnt + 1
+		where post_id=#{post_id}
+	</update>
+
+
 	<select id="list" resultType="hashmap">
-		SELECT u.address1, u.uid, u.nickname,
-    (SELECT SUBSTRING_INDEX(u.address1, ' ', 1) AS address
-     FROM users u 
-     WHERE p.uid = u.uid
-     LIMIT 1
-    ) AS address, p.*
-    FROM posts p, users u 
-    WHERE p.uid = u.uid and p.category=3
-    and
-    where title like  concat('%',#{query},'%') or contents like concat('%',#{query},'%')
-   
-    ORDER BY p.post_id DESC
-    LIMIT #{start}, #{size};
+		select * from view_comm
+		WHERE category=#{category} and
+		(title LIKE CONCAT('%', #{query}, '%')) OR (contents LIKE CONCAT('%',
+		#{query}, '%'))
+		ORDER BY post_id DESC
+		LIMIT #{start}, #{size};
 	</select>
-	
-	
+
+
+	<select id="reply_list" resultType="hashmap"> 
+		select c.* 
+		
+		from comments c , posts p 
+		where post_id
+		
+		
+		</select>
+
+
+	<select id="filter_list" resultType="hashmap"> 
+		select * from view_comm 
+		
+		
+		
+		
+		<if
+			test="filter!=10">
+			where category=#{category} and filter=#{filter}
+		</if>  
+         <if
+			test="filter==10">
+			where category=#{category}
+		</if> AND ((title LIKE CONCAT('%',
+		#{query}, '%')) OR (contents LIKE CONCAT('%', #{query}, '%'))) ORDER BY
+		post_id DESC LIMIT #{start}, #{size}; </select>
+
+
 	<select id="list2" resultType="hashmap">
 		SELECT u.address1, u.uid, u.nickname,
-    (SELECT SUBSTRING_INDEX(u.address1, ' ', 1) AS address
-     FROM users u 
-     WHERE p.uid = u.uid
-     LIMIT 1
-    ) AS address, p.*
-    FROM posts p, users u 
-    WHERE p.uid = u.uid and p.category=4
-    
-   
- 
-    ORDER BY p.post_id DESC
-    LIMIT #{start}, #{size};
+		(SELECT SUBSTRING_INDEX(u.address1, ' ', 1) AS address
+		FROM users u
+		WHERE p.uid = u.uid
+		LIMIT 1
+		) AS address, p.*
+		FROM posts p, users u
+		WHERE p.uid = u.uid and p.category=4
+
+
+		ORDER BY p.post_id DESC
+		LIMIT #{start}, #{size};
 	</select>
-	
-	
-	 <insert id="insert">
-    	insert into posts (category, uid,   title,contents,price,filter)
-    	values(#{category}, #{uid}, #{title}, #{contents},#{price},#{filter});
-    </insert>
-    
-    <insert id="insert_reply">
-    	insert into posts (category, uid,   title,contents,price,filter,post_origin,reply)
-    	values(#{category}, #{uid}, #{title}, #{contents},#{price},#{filter},#{post_origin},#{reply});
-    </insert>
-    
-    <select id="reply_total" resultType="int">
-		 select count(*) 
-    from posts
-    where post_origin=#{post_origin};
-		</select>
-    
-    <delete id="delete">
+
+
+	<insert id="insert">
+		insert into posts (category, uid, user_id,nickname, title,contents,price,filter)
+		values(#{category}, #{uid},(select user_id from users
+		where uid=#{uid}),(select nickname from users
+		where uid=#{uid}), #{title}, #{contents},#{price},#{filter});
+	</insert>
+
+	<insert id="insert_reply">
+		insert into posts (category, uid,
+		title,contents,price,filter,post_origin,reply)
+		values(#{category}, #{uid}, #{title},
+		#{contents},#{price},#{filter},#{post_origin},#{reply});
+	</insert>
+
+	<select id="reply_total" resultType="int">
+		select count(*)
+		from posts
+		where post_origin=#{post_origin};
+	</select>
+
+	<delete id="delete">
 		delete from posts
 		where post_id=#{post_id}
 	</delete>
-	
-	
+
+
 	<update id="update">
 		update posts
-		set contents=#{contents},  
+		set contents=#{contents},
+		where post_id=#{post_id}
+	</update>
+
+	<select id="read" resultType="hashmap">
+		select * from view_comm
+		where post_id=#{post_id}
+	</select>
+
+	<select id="info" resultType="hashmap">
+
+		select *, (select count(*) from likes where uid=#{uid} and
+		post_id=#{post_id}) ucnt
+		from view_comm
+		where post_id=#{post_id}
+	</select>
+
+
+	<select id="total" resultType="int"> select count(*) from view_comm <if
+			test="filter!=10">
+			where category=#{category} and filter=#{filter}
+		</if>  
+         <if
+			test="filter==10">
+			where category=#{category}
+		</if> AND ((title LIKE CONCAT('%',
+		#{query}, '%')) OR (contents LIKE CONCAT('%', #{query}, '%'))) </select>
+
+
+	<select id="address1" resultType="String">
+		(SELECT SUBSTRING(address1, 1, INSTR(address1, ' ') - 1) AS address
+		FROM users)
+		WHERE uid = #{uid};
+	</select>
+
+
+	<select id="search_list" resultType="hashmap">
+
+		select * from
+		plant p, store s
+
+		where p.plant_id=s.plant_id and p.common_name like
+		concat('%',#{query},'%')
+		order by p.plant_id desc
+		LIMIT #{start}, #{size};
+
+	</select>
+
+
+	<select id="total1" resultType="int">
+		select count(*) from
+		plant p, store s
+
+		where p.plant_id=s.plant_id and p.common_name like
+		concat('%',#{query},'%')
+
+
+	</select>
+
+
+	<select id="reply_list " resultType="hashmap">
+		select * from comments c, posts p
+		where c.post_id=p.post_id and c.post_reply>0
+		order by c.post_reply;
+
+
+	</select>
+
+
+	<update id="update_favorites">
+		update posts
+		set like_cnt=like_cnt + #{amount}
+		where post_id=#{post_id}
+
+	</update>
+
+
+	<delete id="delete_favorites">
+		delete from likes
+		where 
+		
+		user_id=(select user_id from users
+		where uid=#{uid}) and post_id=#{post_id}
+	</delete>
+
+
+	<insert id="insert_favorites">
+		insert into likes(user_id, post_id)
+		
+		values((select user_id from users
+		where uid=#{uid}),#{post_id})
+	</insert>
+	
+	
+	<update id="update_reply">
+		update posts
+		set reply=reply + #{amount}
 		where post_id=#{post_id}
 	</update>
 	
-	<select id="read" resultType="hashmap">
-		 SELECT u.address1, u.uid, u.nickname,
-    (SELECT SUBSTRING_INDEX(u.address1, ' ', 1) AS address
-     FROM users u 
-     WHERE p.uid = u.uid
-     LIMIT 1
-    ) AS address, p.*
-    FROM posts p, users u 
-	where p.uid = u.uid and p.post_id=#{post_id}
-		</select>
+	
+	<insert id="insert_vote">
+		insert into posts (category, uid, user_id,nickname, title,contents,price,filter)
+		values(#{category}, #{uid},(select user_id from users
+		where uid=#{uid}),(select nickname from users
+		where uid=#{uid}), #{title}, #{contents},#{price},#{filter});
+		
+		insert into vote (post_id,title, res,uid)
+		values(select * from posts;
+  select max(post_id)
+  from posts
+  where category=3,#{title}, #{res} , #{uid});
+	</insert>
 	
 	
-	 <select id="total" resultType="int">
-    	select count(*)
-    	from posts;
-    </select>
-    
-       <select id="address1" resultType="String">
-		(SELECT SUBSTRING(address1, 1, INSTR(address1, ' ') - 1) AS address
-FROM users)
-WHERE uid = #{uid};
-    </select>
-    
-    
- 
- 
- 
+
+
 </mapper>
 
 	
