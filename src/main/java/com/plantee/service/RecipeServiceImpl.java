@@ -14,30 +14,29 @@ import com.plantee.domain.QueryVO;
 @Service
 public class RecipeServiceImpl implements RecipeService {
 
-	@Autowired
-	RecipeDAO dao;
-	
-	@Autowired
-	CommentsDAO cdao;
-	
+   @Autowired
+   RecipeDAO dao;
+   
+   @Autowired
+   CommentsDAO cdao;
+   
 
-	@Override
-	public HashMap<String, Object> list(QueryVO vo) {
-		HashMap<String, Object> map=new HashMap<String, Object>();
-		map.put("list", dao.list(vo));
-		map.put("total", dao.total(vo));
-		return map;
-	}
-
-
-	@Override
-	public void review_insert(CommentsVO vo) {
-		dao.review_insert(vo);
-	}
+   @Override
+   public HashMap<String, Object> list(QueryVO vo) {
+      HashMap<String, Object> map=new HashMap<String, Object>();
+      map.put("list", dao.list(vo));
+      map.put("total", dao.total(vo));
+      return map;
+   }
 
 
-	@Override
-	public void review_delete(int comment_id) {
-		dao.review_delete(comment_id);
-	}
+   @Override
+   public void review_insert(CommentsVO vo) {
+      dao.review_insert(vo);
+   }
+
+   @Override
+   public void review_delete(int comment_id) {
+	   dao.review_delete(comment_id);
+   }
 }

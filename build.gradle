@@ -12,11 +12,9 @@ java {
 }
 
 
-compileJava {
-    options.compilerArgs += ["-parameters"]
-}
 
-
+compileJava {    options.compilerArgs << '-parameters'}
+ 
 
 repositories {
 	mavenCentral()

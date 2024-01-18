@@ -4,46 +4,43 @@
 	<select id="read" resultType="hashmap">
 		select *
 		from posts
-		where post_id = #{post_id};
+		where magazine_num = #{magazine_num};
 	</select>
 	<select id="list" resultType="hashmap">
 		select *
 		from posts p, users u
-		where p.user_id = u.user_id and category=7
-		<if test="key=='title'">
-			and title like concat('%',#{query},'%')
-		</if>
-		order by post_id desc
+		where p.user_id = u.user_id and magazine_num = magazine_num 
+		order by magazine_num desc
 		limit #{start},#{size}
 	</select>
     <select id="total" resultType="int">
-    	select count(*)
-    	from posts p,users u
-    	where p.user_id = u.user_id and category=7
-    	<if test="key=='title'">
-			and title like concat('%',#{query},'%')
-		</if>
-		limit #{start}, ${size};
-    </select>
+		select count(*)
+		from posts p, users u
+		where p.user_id = u.user_id and category=7
+		order by magazine_num desc
+	</select>
 	<insert id="insert">
-		insert into posts(image, contents, category, title, user_id, nickname, uid)
-		values(#{image}, #{contents}, #{category},#{title},#{user_id}, #{nickname}, #{uid});
+		insert into posts(image, contents, category, title, nickname, uid , user_id, magazine_num)
+		values(#{image}, #{contents}, #{category}, #{title}, #{nickname}, #{uid}, #{user_id}, #{magazine_num});
 	</insert>
 	<update id="update">
 		update posts
-		set title = #{title}, image = #{image}, contents = #{contents}, uid=#{uid}
-		where post_id = #{post_id}
+		set title = #{title}, image = #{image}, contents = #{contents}, uid = #{uid}, user_id = #{user_id}
+		, category = #{category}, nickname = #{nickname}
+		where magazine_num = #{magazine_num}
 	</update>
 	<update id="readCount">
 		update posts
 		set view_cnt = view_cnt + 1
-		where post_id =#{post_id} and category=7
+		where magazine_num =#{magazine_num} and category=7
 	</update>
 	<delete id="delete">
 		delete from posts
-		where post_id = #{post_id};
+		where magazine_num = #{magazine_num};
 	</delete>
 	<update id="image">
-		update shop set image=#{image} where post_id=#{post_id}
+		update posts 
+		set image=#{image} 
+		where magazine_num=#{magazine_num}
 	</update>
 </mapper>

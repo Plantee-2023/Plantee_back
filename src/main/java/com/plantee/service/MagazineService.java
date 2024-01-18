@@ -6,5 +6,5 @@ import com.plantee.domain.QueryVO;
 
 public interface MagazineService {
 	public HashMap<String, Object> list(QueryVO vo);
-	public HashMap<String, Object> read(int post_id);
+	public HashMap<String, Object> read(int magazine_num);
 }
