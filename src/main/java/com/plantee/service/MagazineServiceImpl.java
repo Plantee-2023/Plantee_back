@@ -18,12 +18,7 @@ public class MagazineServiceImpl implements MagazineService{
 	
 	@Override
 	public HashMap<String, Object> list(QueryVO vo) {
-		HashMap<String, Object> map=new HashMap<String, Object>();
-		map.put("page", vo.getPage());
-		map.put("start",(vo.getPage()-1)*vo.getSize());
-		map.put("size", vo.getSize());
-		map.put("key", vo.getKey());
-		map.put("query", vo.getQuery());
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("list", dao.list(vo));
 		map.put("total", dao.total(vo));
 		return map;
@@ -31,9 +26,9 @@ public class MagazineServiceImpl implements MagazineService{
 	
 	@Transactional
 	@Override
-	public HashMap<String, Object> read(int post_id) {
-		dao.readCount(post_id);
-		return dao.read(post_id);
+	public HashMap<String, Object> read(int magazine_num) {
+		dao.readCount(magazine_num);
+		return dao.read(magazine_num);
 	}
 
 }

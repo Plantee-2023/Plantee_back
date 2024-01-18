@@ -20,7 +20,14 @@ public class MagazineVO {
 	private int category;
 	private String uid;
 	private String nickname;
-	private String key;
+	private int magazine_num;
+	
+	public int getMagazine_num() {
+		return magazine_num;
+	}
+	public void setMagazine_num(int magazine_num) {
+		this.magazine_num = magazine_num;
+	}
 	public int getPost_id() {
 		return post_id;
 	}
@@ -123,20 +130,17 @@ public class MagazineVO {
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
-	public String getKey() {
-		return key;
-	}
-	public void setKey(String key) {
-		this.key = key;
-	}
 	@Override
 	public String toString() {
 		return "MagazineVO [post_id=" + post_id + ", user_id=" + user_id + ", plant_id=" + plant_id + ", title=" + title
 				+ ", contents=" + contents + ", image=" + image + ", red_date=" + red_date + ", mdfy_date=" + mdfy_date
 				+ ", link=" + link + ", price=" + price + ", view_cnt=" + view_cnt + ", like_cnt=" + like_cnt
 				+ ", coment_cnt=" + coment_cnt + ", filter=" + filter + ", category=" + category + ", uid=" + uid
-				+ ", nickname=" + nickname + ", key=" + key + "]";
+				+ ", nickname=" + nickname + ", magazine_num=" + magazine_num + "]";
 	}
+	
+	
+	
 	
 	
 }
