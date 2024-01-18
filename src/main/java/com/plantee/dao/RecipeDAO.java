@@ -8,6 +8,7 @@ import com.plantee.domain.QueryVO;
 import com.plantee.domain.RecipeVO;
 
 public interface RecipeDAO {
+
    public HashMap<String, Object> read(int recipe_id);
    public List<HashMap<String, Object>> list(QueryVO vo);
    public int total(QueryVO vo);

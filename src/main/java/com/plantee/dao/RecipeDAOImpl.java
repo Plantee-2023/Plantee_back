@@ -74,16 +74,16 @@ public class RecipeDAOImpl implements RecipeDAO {
       return session.selectOne(namespace + ".review_total", recipe_id);
    }
 
-   @Override
-   public void review_update(CommentsVO vo) {
-      session.update(namespace + ".review_update", vo);
-   }
+	@Override
+	public void review_update(CommentsVO vo) {
+		session.update(namespace + ".review_update", vo);
+	}
 
-//   @Override
-//   public void review_updatelcnt(int comment_id, int amount) {
-//      HashMap<String, Object> map = new HashMap<>();
-//      map.put("comment_id", comment_id);
-//      map.put("amount", amount);
-//      session.update(namespace + ".review_updatelcnt", map)
-//   }
+//	@Override
+//	public void review_updatelcnt(int comment_id, int amount) {
+//		HashMap<String, Object> map = new HashMap<>();
+//		map.put("comment_id", comment_id);
+//		map.put("amount", amount);
+//		session.update(namespace + ".review_updatelcnt", map)
+//	}
 }

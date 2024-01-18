@@ -35,9 +35,8 @@ public class RecipeServiceImpl implements RecipeService {
       dao.review_insert(vo);
    }
 
-
    @Override
    public void review_delete(int comment_id) {
-      dao.review_delete(comment_id);
+	   dao.review_delete(comment_id);
    }
 }
