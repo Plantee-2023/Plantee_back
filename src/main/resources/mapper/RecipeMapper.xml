@@ -36,20 +36,19 @@
 	
 	<!-- Comments -->
 	<select id="review_list" resultType="hashmap">
-		select *
-		from view_recipecomm
-		order by recipe_id desc;
-	</select>
-	
-	<select id="review_read" resultType="com.plantee.domain.CommentsVO">
-		select *
-		from view_recipecomm
-		where recipe_id = #{recipe_id};
+		select c.comment_id, c.user_id, c.recipe_id, c.contents, c.image, c.reg_date, c.mdfy_date, c.like_cnt, c.category,
+			u.uid, u.nickname, u.image, date_format(c.reg_date, '%Y-%m-%d %T') fmtdate
+		from comments as c, users as u
+		where category=2 and c.user_id=u.user_id and recipe_id= #{recipe_id}
+		order by comment_id desc;
 	</select>
 	
 	<insert id="review_insert">
 		insert into comments(user_id, recipe_id, contents, category, uid)
-		select (select user_id from users where uid = #{uid}), #{recipe_id}, #{contents}, #{category}, #{uid};
+		select (select user_id
+		from users
+		where uid = #{uid}),
+		#{recipe_id}, #{contents}, 2, #{uid};
 	</insert>
 	
 	<delete id="review_delete">
@@ -57,9 +56,15 @@
 		where comment_id=#{comment_id}
 	</delete>
 	
+	<update id="review_update">
+		update comments
+		set contents=#{contents}, mdfy_date=now()
+		where comment_id=#{comment_id}
+	</update>
+	
 	<select id="review_total" resultType="int">
-		select count(*) as review_cnt
+		select count(*)
 		from comments
-		where recipe_id = #{recipe_id} and category=2;
+		where category=2 and recipe_id=#{recipe_id}
 	</select>
 </mapper>

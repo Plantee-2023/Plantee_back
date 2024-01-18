@@ -59,11 +59,12 @@ public class RecipeRestController {
 	}
 	
 	/* Comments */
-	@GetMapping("/review/list.json")
-	public HashMap<String, Object> review_list(CommentsVO vo){
+	@GetMapping("/review/{recipe_id}")
+	public HashMap<String, Object> review_list(@PathVariable("recipe_id") String recipe_id){
+		System.out.println("controller!!");
 	    HashMap<String, Object> map = new HashMap<String, Object>();
-	    map.put("reviewtotal", dao.review_total(vo.getRecipe_id()));
-	    map.put("reviewlist", dao.review_list(vo.getRecipe_id()));
+	    map.put("reviewtotal", dao.review_total(Integer.parseInt(recipe_id)));
+	    map.put("reviewlist", dao.review_list(Integer.parseInt(recipe_id))); //String -> int
 	    return map;
 	}
 	
@@ -75,5 +76,10 @@ public class RecipeRestController {
 	@PostMapping("/review/delete/{comment_id}")
 	public void review_delete(@PathVariable("comment_id") int comment_id) {
 		dao.review_delete(comment_id);
+	}
+	
+	@PostMapping("/review/uppdate")
+	public void review_update(@RequestBody CommentsVO vo) {
+		dao.review_update(vo);
 	}
 }

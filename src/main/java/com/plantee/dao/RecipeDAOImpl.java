@@ -51,11 +51,6 @@ public class RecipeDAOImpl implements RecipeDAO {
 	}
 
 	/* Comments */
-	
-	@Override
-	public CommentsVO review_read(int recipe_id) {
-		return session.selectOne(namespace + ".review_read", recipe_id);
-	}
 
 	@Override
 	public List<HashMap<String, Object>> review_list(int recipe_id) {
@@ -77,6 +72,11 @@ public class RecipeDAOImpl implements RecipeDAO {
 	@Override
 	public int review_total(int recipe_id) {
 		return session.selectOne(namespace + ".review_total", recipe_id);
+	}
+
+	@Override
+	public void review_update(CommentsVO vo) {
+		session.update(namespace + ".review_update", vo);
 	}
 
 //	@Override

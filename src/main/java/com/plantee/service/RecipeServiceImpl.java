@@ -38,7 +38,6 @@ public class RecipeServiceImpl implements RecipeService {
 
 	@Override
 	public void review_delete(int comment_id) {
-		CommentsVO vo = dao.review_read(comment_id);
 		dao.review_delete(comment_id);
 	}
 }
