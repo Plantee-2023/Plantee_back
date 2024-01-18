@@ -17,15 +17,9 @@ public class CommentsVO extends UserVO {
 	private Date mdfy_date;
 	private int upper_id;
 	private int lvl;
+	private String uid;
 	private String nickname;
 	private int user_id;
-	
-	public int getUser_id() {
-		return user_id;
-	}
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
-	}
 	public int getRecipe_id() {
 		return recipe_id;
 	}
@@ -110,19 +104,32 @@ public class CommentsVO extends UserVO {
 	public void setLvl(int lvl) {
 		this.lvl = lvl;
 	}
-	
+	public String getUid() {
+		return uid;
+	}
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
 	public String getNickname() {
 		return nickname;
 	}
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
+	public int getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
+	}
 	@Override
 	public String toString() {
 		return "CommentsVO [recipe_id=" + recipe_id + ", post_id=" + post_id + ", store_id=" + store_id
 				+ ", comment_id=" + comment_id + ", contents=" + contents + ", image=" + image + ", stars=" + stars
 				+ ", stars_avg=" + stars_avg + ", like_cnt=" + like_cnt + ", category=" + category + ", reg_date="
-				+ reg_date + ", mdfy_date=" + mdfy_date + ", upper_id=" + upper_id + ", lvl=" + lvl + ", nickname="
-				+  "]";
+				+ reg_date + ", mdfy_date=" + mdfy_date + ", upper_id=" + upper_id + ", lvl=" + lvl + ", uid=" + uid
+				+ ", nickname=" + nickname + ", user_id=" + user_id + "]";
 	}
+	
+	
 }

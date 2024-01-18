@@ -18,7 +18,6 @@ public class UserVO {
 	private Date mdfy_date;
 	private int level;
 	private int exp;
-	
 	@Override
 	public String toString() {
 		return "UserVO [user_id=" + user_id + ", uid=" + uid + ", upass=" + upass + ", uname=" + uname + ", nickname="
@@ -26,6 +25,7 @@ public class UserVO {
 				+ image + ", email=" + email + ", seller_yn=" + seller_yn + ", reg_date=" + reg_date + ", mdfy_date="
 				+ mdfy_date + ", level=" + level + ", exp=" + exp + "]";
 	}
+
 
 	public int getUser_id() {
 		return user_id;
