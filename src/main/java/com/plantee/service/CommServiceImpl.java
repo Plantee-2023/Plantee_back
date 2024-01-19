@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.plantee.dao.CommDAO;
 
 import com.plantee.domain.QueryVO;
+import com.plantee.domain.VoteVO;
 
 @Service
 public class CommServiceImpl implements CommService {
@@ -28,8 +29,18 @@ public class CommServiceImpl implements CommService {
 	@Transactional
 	@Override
 	public HashMap<String, Object> read(int post_id, String uid) {
+		
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("read", dao.read(post_id, uid)); 
+		map.put("mylikes",dao.mylikes(post_id, uid));
+		map.put("show_vote", dao.show_vote(post_id));
+		map.put("myvote", dao.myvote(uid,post_id));
 		dao.viewcnt(post_id);
-		return dao.read(post_id, uid);
+		 
+		return map;
+		
 	}
 	
 	@Transactional
@@ -44,6 +55,16 @@ public class CommServiceImpl implements CommService {
 	public void deleteFavorites(int post_id, String uid) {
 		dao.deleteFavorites(post_id, uid);
 		dao.updateFavorites(post_id, -1);
+	}
+
+	@Transactional
+	@Override
+	public void update_vote(VoteVO vo) {
+		dao.update_votecnt(vo);
+		dao.update_vote_result(vo);
+		 
+	 
+		
 	}
 	
 	

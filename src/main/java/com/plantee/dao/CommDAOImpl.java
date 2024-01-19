@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.plantee.domain.CommVO;
 import com.plantee.domain.QueryVO;
+import com.plantee.domain.VoteVO;
 
 @Repository
 public class CommDAOImpl implements CommDAO {
@@ -152,4 +153,71 @@ public class CommDAOImpl implements CommDAO {
 		session.update(namespace + ".update_favorites", map);
 	}
 
-}
+	@Override
+	public int mylikes(int post_id, String uid) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("post_id", post_id);
+		map.put("uid", uid);
+		return session.selectOne(namespace+".mylikes",map);
+	}
+ 
+	@Override
+	public void vote_insert(VoteVO vo) {
+		 session.insert(namespace+".vote_insert",vo);
+		
+		
+	}
+
+	@Override
+	public List<HashMap<String, Object>> show_vote(int post_id) {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace+".show_vote",post_id);
+	}
+
+	@Override
+	public void update_votecnt(VoteVO vo) {
+ 
+		session.update(namespace+".update_votecnt",vo);
+	}
+
+	@Override
+	public void update_vote_result(VoteVO vo) {
+		session.insert(namespace+".update_vote_result",vo);
+		
+	}
+
+	@Override
+	public HashMap<String,Object> myvote(String uid,int post_id) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("uid", uid);
+		map.put("post_id", post_id);
+		return session.selectOne(namespace+".myvote",map);
+	}
+
+	@Override
+	public void update_votes(VoteVO vo) {
+		session.update(namespace+".update_votes",vo);
+		
+	}
+	
+	
+	
+	
+	
+	 
+	
+	/*
+	
+	@Override
+	public void vote_insert(String title, String res, String res2, String res3) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("title", title);
+		map.put("res", res);
+		map.put("res2", res2);
+		map.put("res3", res3);
+		 session.insert(namespace+".vote_insert"+map);
+		*/
+		
+	}
+
+ 

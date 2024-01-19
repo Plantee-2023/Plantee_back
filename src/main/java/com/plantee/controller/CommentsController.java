@@ -66,6 +66,12 @@ public class CommentsController {
 		dao.insert_comments(vo);
 	}
 
+	@PostMapping("/update_comments")
+	public void update( @RequestBody CommentsVO vo) {
+
+		dao.update_comments(vo);
+	}
+
 	
 	
 	@PostMapping("/delete_comments/{comment_id}")

@@ -13,5 +13,6 @@ public interface CommentsDAO {
 	public int read_id(String uid);
 	public void insert_comments(CommentsVO vo);
 	public void delete_comments(int comments_id);
+	public void update_comments(CommentsVO vo);
 	
 }

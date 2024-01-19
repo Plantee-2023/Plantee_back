@@ -58,5 +58,9 @@ public class CommentsDAOImpl implements CommentsDAO  {
 		session.delete(namespace + ".delete",comment_id);
 		
 	}
+	@Override
+	public void update_comments(CommentsVO vo) {
+		session.update(namespace + ".update",vo);
+	}
 
 }
