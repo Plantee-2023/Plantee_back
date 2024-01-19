@@ -61,9 +61,9 @@ public class MagazineRestController {
 		dao.update(vo);
 	}
 	
-	@GetMapping("/delete/{post_id}")
-	public void delete(@PathVariable("post_id") int post_id) {
-		dao.delete(post_id);
+	@GetMapping("/delete/{magazine_num}")
+	public void delete(@PathVariable("magazine_num") int magazine_num) {
+		dao.delete(magazine_num);
 	}
 	
 	//이미지 업로드
