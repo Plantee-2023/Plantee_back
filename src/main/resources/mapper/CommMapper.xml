@@ -59,11 +59,23 @@
 
 
 	<insert id="insert">
-		insert into posts (category, uid, user_id,nickname,
+		insert into posts 
+		<if	test="plant_id!=''">
+			(category, uid, user_id,nickname,
 		title,contents,price,filter,plant_id, image, plant_title,plant_link, store_id)
 		values(#{category}, #{uid},(select user_id from users
 		where uid=#{uid}),(select nickname from users
 		where uid=#{uid}), #{title}, #{contents},#{price},#{filter},#{plant_id},#{image},#{plant_title},#{plant_link},#{store_id});
+		</if>
+		<if	test="plant_id==''">
+				(category, uid, user_id,nickname,
+		title,contents,price,filter, image, plant_title,plant_link, store_id)
+		values(#{category}, #{uid},(select user_id from users
+		where uid=#{uid}),(select nickname from users
+		where uid=#{uid}), #{title}, #{contents},#{price},#{filter},#{image},#{plant_title},#{plant_link},#{store_id});
+			</if>
+		
+		
 	</insert>
 
 	<insert id="insert_reply">
