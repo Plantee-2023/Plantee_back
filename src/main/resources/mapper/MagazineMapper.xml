@@ -7,7 +7,7 @@
 		where magazine_num = #{magazine_num};
 	</select>
 	<select id="list" resultType="hashmap">
-		select *
+		select *, date_format(red_date, '%Y-%m-%d %T') fmtdate 
 		from posts p, users u
 		where p.user_id = u.user_id and magazine_num = magazine_num 
 		order by magazine_num desc

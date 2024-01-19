@@ -2,6 +2,7 @@ package com.plantee.controller;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,11 @@ import com.plantee.domain.UserVO;
 public class UserRestController {
 	@Autowired
 	UserDAO dao;
+	
+	@GetMapping("/list.json")
+	   public List<HashMap<String, Object>> list(UserVO vo) {
+	      return dao.list(vo);
+	   }
 
 	@GetMapping("/read.json/{uid}") // localhost:8080/users/read.json/red
 	public HashMap<String, Object> read(@PathVariable("uid") String uid) {

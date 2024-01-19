@@ -1,6 +1,7 @@
 package com.plantee.dao;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,11 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public void delete(String uid) {
 		session.delete(namespace + ".delete", uid);
+	}
+
+	@Override
+	public List<HashMap<String, Object>> list(UserVO vo) {
+		 return session.selectList(namespace + ".list", vo);
 	}
 
 }
