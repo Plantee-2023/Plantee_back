@@ -20,23 +20,17 @@
 	</select>
 
 
-	<select id="reply_list" resultType="hashmap"> 
-		select c.* 
-		
-		from comments c , posts p 
+	<select id="reply_list" resultType="hashmap">
+		select c.*
+
+		from comments c , posts p
 		where post_id
-		
-		
-		</select>
 
 
-	<select id="filter_list" resultType="hashmap"> 
-		select * from view_comm 
-		
-		
-		
-		
-		<if
+	</select>
+
+
+	<select id="filter_list" resultType="hashmap"> select * from view_comm <if
 			test="filter!=10">
 			where category=#{category} and filter=#{filter}
 		</if>  
@@ -65,10 +59,11 @@
 
 
 	<insert id="insert">
-		insert into posts (category, uid, user_id,nickname, title,contents,price,filter)
+		insert into posts (category, uid, user_id,nickname,
+		title,contents,price,filter,plant_id, image, plant_title,plant_link, store_id)
 		values(#{category}, #{uid},(select user_id from users
 		where uid=#{uid}),(select nickname from users
-		where uid=#{uid}), #{title}, #{contents},#{price},#{filter});
+		where uid=#{uid}), #{title}, #{contents},#{price},#{filter},#{plant_id},#{image},#{plant_title},#{plant_link},#{store_id});
 	</insert>
 
 	<insert id="insert_reply">
@@ -92,7 +87,7 @@
 
 	<update id="update">
 		update posts
-		set contents=#{contents},
+		set title=#{title}, contents=#{contents}
 		where post_id=#{post_id}
 	</update>
 
@@ -171,42 +166,84 @@
 
 	<delete id="delete_favorites">
 		delete from likes
-		where 
-		
+		where
+
 		user_id=(select user_id from users
 		where uid=#{uid}) and post_id=#{post_id}
 	</delete>
 
 
+	<select id="mylikes" resultType="int">
+		select count(*)
+		from likes
+		where post_id=${post_id} and user_id=(select user_id from users
+		where uid=#{uid});
+	</select>
+
+
 	<insert id="insert_favorites">
 		insert into likes(user_id, post_id)
-		
+
 		values((select user_id from users
 		where uid=#{uid}),#{post_id})
 	</insert>
-	
-	
+
+<insert id="vote_insert">
+		insert into vote(post_id,vote_title,uid,res,res2,res3)
+		values((select MAX(post_id) from posts), #{title},(select uid from
+		posts where post_id=(select Max(post_id) from
+		posts)),#{res},#{res2},#{res3});
+	</insert>
+
 	<update id="update_reply">
 		update posts
 		set reply=reply + #{amount}
 		where post_id=#{post_id}
 	</update>
+
+ 
+
+	<select id="show_vote" resultType="hashmap">
+	select * from vote
+	where post_id=#{post_id};
+	</select>
 	
 	
-	<insert id="insert_vote">
-		insert into posts (category, uid, user_id,nickname, title,contents,price,filter)
-		values(#{category}, #{uid},(select user_id from users
-		where uid=#{uid}),(select nickname from users
-		where uid=#{uid}), #{title}, #{contents},#{price},#{filter});
+		<update id="update_votecnt">
+   update vote  
+    <set>
+        <if test="option==1">
+            result1 = result1 + 1,
+        </if>  
+        <if test="option==2">
+            result2 = result2 + 1,
+        </if>  
+        <if test="option==3">
+            result3 = result3 + 1,
+        </if>  
+    </set>
+    where post_id=#{post_id} 
 		
-		insert into vote (post_id,title, res,uid)
-		values(select * from posts;
-  select max(post_id)
-  from posts
-  where category=3,#{title}, #{res} , #{uid});
-	</insert>
+	</update>
+
+
+	<insert id="update_vote_result">
+		insert into vote_res (vote_id,post_id,vote_option,uid) values(#{vote_id},#{post_id}, #{option}, #{uid});
+		</insert>
+		
+		
+	<select id="myvote" resultType="hashmap">
+		select count(*)as cnt ,vote_option
+from vote_res
+where post_id=#{post_id} and uid=#{uid};
+		
+	</select>
 	
+	<update id="update_votes">
 	
+	update vote set vote_title=#{vote_title} ,res=#{res}, res2=#{res2}, res3=#{res3}
+where post_id=#{post_id};
+</update>
 
 
 </mapper>

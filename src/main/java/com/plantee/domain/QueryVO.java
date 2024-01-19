@@ -5,7 +5,7 @@ public class QueryVO { // DTO
 	private int size;
 	private int page;
 	private int start;
-	private int key;
+	private String key;
 	public String getQuery() {
 		return query;
 	}
@@ -30,10 +30,10 @@ public class QueryVO { // DTO
 	public void setStart(int start) {
 		this.start = start;
 	}
-	public int getKey() {
+	public String getKey() {
 		return key;
 	}
-	public void setKey(int key) {
+	public void setKey(String key) {
 		this.key = key;
 	}
 	@Override
