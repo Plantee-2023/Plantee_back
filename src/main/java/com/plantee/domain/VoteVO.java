@@ -11,6 +11,7 @@ public class VoteVO {
 	private String uid;
 	private String res2;
 	private String res3;
+	private String title;
 	public int getVote_id() {
 		return vote_id;
 	}
@@ -59,11 +60,24 @@ public class VoteVO {
 	public void setRes3(String res3) {
 		this.res3 = res3;
 	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
 	@Override
 	public String toString() {
 		return "VoteVO [vote_id=" + vote_id + ", post_id=" + post_id + ", vote_title=" + vote_title + ", option="
-				+ option + ", res=" + res + ", uid=" + uid + ", res2=" + res2 + ", res3=" + res3 + "]";
+				+ option + ", res=" + res + ", uid=" + uid + ", res2=" + res2 + ", res3=" + res3 + ", title=" + title
+				+ ", getVote_id()=" + getVote_id() + ", getPost_id()=" + getPost_id() + ", getVote_title()="
+				+ getVote_title() + ", getOption()=" + getOption() + ", getRes()=" + getRes() + ", getUid()=" + getUid()
+				+ ", getRes2()=" + getRes2() + ", getRes3()=" + getRes3() + ", getTitle()=" + getTitle()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
+				+ "]";
 	}
+	
+	
 	 
  
 	
